@@ -31,8 +31,7 @@ namespace MeetMeHereWP8
         {
             InitializeComponent();
 
-            // Sample code to localize the ApplicationBar
-            //BuildLocalizedApplicationBar();
+            BuildLocalizedApplicationBar();
 
             geolocator = new Geolocator();
             geolocator.DesiredAccuracyInMeters = 10;
@@ -42,10 +41,10 @@ namespace MeetMeHereWP8
 
         void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
-            OneShotLocation_Click(); 
+            GetLocation_Click(sender, e); 
         }
 
-        private async void OneShotLocation_Click()
+        private async void GetLocation_Click(object sender, EventArgs e)
         {
             //Check for the user agreement in use his position. If not, method returns.
             if ((bool)IsolatedStorageSettings.ApplicationSettings["LocationConsent"] != true)
@@ -53,6 +52,9 @@ namespace MeetMeHereWP8
                 // The user has opted out of Location.
                 return;
             }
+
+            HereMap.Layers.Clear();
+            LoadingText.Visibility = System.Windows.Visibility.Visible; 
 
             Geolocator geolocator = new Geolocator();
             geolocator.DesiredAccuracyInMeters = 10;
@@ -64,14 +66,11 @@ namespace MeetMeHereWP8
                      timeout: TimeSpan.FromSeconds(10)
                     );
 
-                //With this 2 lines of code, the app is able to write on a Text Label the Latitude and the Longitude, given by {{Icode|geoposition}}
-
                 var coordinates = new GeoCoordinate(geoposition.Coordinate.Latitude, geoposition.Coordinate.Longitude);
                 HereMap.Center = coordinates;
                 HereMap.ZoomLevel = 18;
                 LoadingText.Visibility = System.Windows.Visibility.Collapsed; 
 
-                //TODO:put pin on the map with this current location
                 DrawMapMarkers(coordinates); 
             }
             //If an error is catch 2 are the main causes: the first is that you forgot to include ID_CAP_LOCATION in your app manifest. 
@@ -80,7 +79,7 @@ namespace MeetMeHereWP8
             {
                 if ((uint)ex.HResult == 0x80004004)
                 {
-                    MessageBox.Show("location is disabled in phone settings.");
+                    MessageBox.Show("Location is disabled in phone settings.");
                 }
                 //else
                 {
@@ -91,7 +90,6 @@ namespace MeetMeHereWP8
 
         private void DrawMapMarkers(GeoCoordinate coordinates)
         {
-            HereMap.Layers.Clear();
             MapLayer mapLayer = new MapLayer();
          
             // Draw marker for current position
@@ -153,20 +151,31 @@ namespace MeetMeHereWP8
         }
 
         // Sample code for building a localized ApplicationBar
-        //private void BuildLocalizedApplicationBar()
-        //{
-        //    // Set the page's ApplicationBar to a new instance of ApplicationBar.
-        //    ApplicationBar = new ApplicationBar();
+        private void BuildLocalizedApplicationBar()
+        {
+            // Set the page's ApplicationBar to a new instance of ApplicationBar.
+            ApplicationBar = new ApplicationBar();
 
-        //    // Create a new button and set the text value to the localized string from AppResources.
-        //    ApplicationBarIconButton appBarButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.add.rest.png", UriKind.Relative));
-        //    appBarButton.Text = AppResources.AppBarButtonText;
-        //    ApplicationBar.Buttons.Add(appBarButton);
+            // Create a new button and set the text value to the localized string from AppResources.
+            ApplicationBarIconButton relocateButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.refresh.png", UriKind.Relative));
+            relocateButton.Text = "relocate"; //AppResources.AppBarButtonText;
+            relocateButton.Click += GetLocation_Click; 
+            ApplicationBar.Buttons.Add(relocateButton);
 
-        //    // Create a new menu item with the localized string from AppResources.
-        //    ApplicationBarMenuItem appBarMenuItem = new ApplicationBarMenuItem(AppResources.AppBarMenuItemText);
-        //    ApplicationBar.MenuItems.Add(appBarMenuItem);
-        //}
+            //// Create a new button and set the text value to the localized string from AppResources.
+            //ApplicationBarIconButton emailButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.email.png", UriKind.Relative));
+            //emailButton.Text = "send email"; //AppResources.AppBarButtonText;
+            //ApplicationBar.Buttons.Add(emailButton);
+
+            //// Create a new button and set the text value to the localized string from AppResources.
+            //ApplicationBarIconButton smsButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.phone.png", UriKind.Relative));
+            //smsButton.Text = "send text"; //AppResources.AppBarButtonText;
+            //ApplicationBar.Buttons.Add(smsButton);
+
+            // Create a new menu item with the localized string from AppResources.
+            ApplicationBarMenuItem appBarMenuItem = new ApplicationBarMenuItem(AppResources.AppBarMenuItemText);
+            ApplicationBar.MenuItems.Add(appBarMenuItem);
+        }
 
 
 
@@ -174,17 +183,15 @@ namespace MeetMeHereWP8
         {
             if (IsolatedStorageSettings.ApplicationSettings.Contains("LocationConsent"))
             {
-                //User already gave us his agreement for using his position
+                //User already gave us agreement for using their position
                 if ((bool)IsolatedStorageSettings.ApplicationSettings["LocationConsent"] == true)
-
+                {
                     return;
-                //If he didn't we ask for it
+                }
                 else
                 {
-                    MessageBoxResult result =
-                                MessageBox.Show("Can I use your position?",
-                                "Location",
-                                MessageBoxButton.OKCancel);
+                    //If they didn't we ask for it
+                    MessageBoxResult result = MessageBox.Show("Can I use your position?", "Location", MessageBoxButton.OKCancel);
 
                     if (result == MessageBoxResult.OK)
                     {
@@ -198,10 +205,9 @@ namespace MeetMeHereWP8
                     IsolatedStorageSettings.ApplicationSettings.Save();
                 }
             }
-
-                //Ask for user agreement in using his position
             else
             {
+                //Ask for user agreement in using their position
                 MessageBoxResult result =
                             MessageBox.Show("Can I use your position?",
                             "Location",
@@ -219,7 +225,5 @@ namespace MeetMeHereWP8
                 IsolatedStorageSettings.ApplicationSettings.Save();
             }
         }
-
-
     }
 }
