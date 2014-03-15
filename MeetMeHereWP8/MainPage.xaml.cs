@@ -15,6 +15,7 @@ using Microsoft.Phone.Maps.Controls;
 using System.Windows.Media;
 using System.Device.Location;
 using System.Windows.Shapes;
+using Microsoft.Phone.Tasks;
 
 ////based on examples from
 //http://developer.nokia.com/community/wiki/Get_Phone_Location_with_Windows_Phone_8
@@ -25,13 +26,15 @@ namespace MeetMeHereWP8
     public partial class MainPage : PhoneApplicationPage
     {
         Geolocator geolocator = null;
+        GeoCoordinate coordinates = null;
+        ApplicationBarIconButton smsButton;
+        ApplicationBarIconButton emailButton;
 
         // Constructor
         public MainPage()
         {
             InitializeComponent();
-
-            BuildLocalizedApplicationBar();
+            ApplicationBar = new ApplicationBar();
 
             geolocator = new Geolocator();
             geolocator.DesiredAccuracyInMeters = 10;
@@ -54,6 +57,7 @@ namespace MeetMeHereWP8
             }
 
             HereMap.Layers.Clear();
+            BuildLocalizedApplicationBar(false); 
             LoadingText.Visibility = System.Windows.Visibility.Visible; 
 
             Geolocator geolocator = new Geolocator();
@@ -66,12 +70,13 @@ namespace MeetMeHereWP8
                      timeout: TimeSpan.FromSeconds(10)
                     );
 
-                var coordinates = new GeoCoordinate(geoposition.Coordinate.Latitude, geoposition.Coordinate.Longitude);
+                coordinates = new GeoCoordinate(geoposition.Coordinate.Latitude, geoposition.Coordinate.Longitude);
                 HereMap.Center = coordinates;
                 HereMap.ZoomLevel = 18;
                 LoadingText.Visibility = System.Windows.Visibility.Collapsed; 
 
-                DrawMapMarkers(coordinates); 
+                DrawMapMarkers(coordinates);
+                BuildLocalizedApplicationBar(true); 
             }
             //If an error is catch 2 are the main causes: the first is that you forgot to include ID_CAP_LOCATION in your app manifest. 
             //The second is that the user doesn't turned on the Location Services
@@ -105,11 +110,15 @@ namespace MeetMeHereWP8
         private void DrawMapMarker(GeoCoordinate coordinate, Color color, MapLayer mapLayer)
         {
             // Create a map marker
-            Polygon polygon = new Polygon();
-            polygon.Points.Add(new Point(0, 0));
-            polygon.Points.Add(new Point(0, 75));
-            polygon.Points.Add(new Point(25, 0));
-            polygon.Fill = new SolidColorBrush(color);
+            //Polygon polygon = new Polygon();
+            //polygon.Points.Add(new Point(0, 0));
+            //polygon.Points.Add(new Point(0, 75));
+            //polygon.Points.Add(new Point(25, 0));
+            //polygon.Fill = new SolidColorBrush(color);
+
+            // Enable marker to be tapped for location information
+            //polygon.Tag = new GeoCoordinate(coordinate.Latitude, coordinate.Longitude);
+            //polygon.MouseLeftButtonUp += new MouseButtonEventHandler(Marker_Click);
 
             int scale = 15; 
 
@@ -127,10 +136,6 @@ namespace MeetMeHereWP8
             circle3.Width = 1 * scale;
             circle3.Height = 1 * scale;
             circle3.Fill = new SolidColorBrush(color); 
-            
-            // Enable marker to be tapped for location information
-            //polygon.Tag = new GeoCoordinate(coordinate.Latitude, coordinate.Longitude);
-            //polygon.MouseLeftButtonUp += new MouseButtonEventHandler(Marker_Click);
 
             // Create a MapOverlay and add marker
             MapOverlay overlay1 = new MapOverlay();
@@ -150,34 +155,43 @@ namespace MeetMeHereWP8
             mapLayer.Add(overlay3);
         }
 
-        // Sample code for building a localized ApplicationBar
-        private void BuildLocalizedApplicationBar()
+        private void BuildLocalizedApplicationBar(bool locationFound)
         {
-            // Set the page's ApplicationBar to a new instance of ApplicationBar.
-            ApplicationBar = new ApplicationBar();
+            ApplicationBar.MenuItems.Clear();
+            if (locationFound)
+            {
+                // Create a new button and set the text value to the localized string from AppResources.
+                var relocateButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.refresh.png", UriKind.Relative));
+                relocateButton.Text = AppResources.AppBarRefreshButtonText;
+                relocateButton.Click += GetLocation_Click;
+                ApplicationBar.Buttons.Add(relocateButton);
 
-            // Create a new button and set the text value to the localized string from AppResources.
-            ApplicationBarIconButton relocateButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.refresh.png", UriKind.Relative));
-            relocateButton.Text = "relocate"; //AppResources.AppBarButtonText;
-            relocateButton.Click += GetLocation_Click; 
-            ApplicationBar.Buttons.Add(relocateButton);
+                // Create a new button and set the text value to the localized string from AppResources.
+                var emailButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.email.png", UriKind.Relative));
+                emailButton.Text = AppResources.AppBarEmailButtonText;
+                emailButton.Click += SendEmail_Click;
+                ApplicationBar.Buttons.Add(emailButton);
 
-            //// Create a new button and set the text value to the localized string from AppResources.
-            //ApplicationBarIconButton emailButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.email.png", UriKind.Relative));
-            //emailButton.Text = "send email"; //AppResources.AppBarButtonText;
-            //ApplicationBar.Buttons.Add(emailButton);
-
-            //// Create a new button and set the text value to the localized string from AppResources.
-            //ApplicationBarIconButton smsButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.phone.png", UriKind.Relative));
-            //smsButton.Text = "send text"; //AppResources.AppBarButtonText;
-            //ApplicationBar.Buttons.Add(smsButton);
+                //// Create a new button and set the text value to the localized string from AppResources.
+                //var smsButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.phone.png", UriKind.Relative));
+                //smsButton.Text = "send text"; //AppResources.AppBarButtonText;
+                //ApplicationBar.Buttons.Add(smsButton);
+            }
 
             // Create a new menu item with the localized string from AppResources.
-            ApplicationBarMenuItem appBarMenuItem = new ApplicationBarMenuItem(AppResources.AppBarMenuItemText);
-            ApplicationBar.MenuItems.Add(appBarMenuItem);
+            //ApplicationBarMenuItem appBarMenuItem = new ApplicationBarMenuItem(AppResources.AppBarMenuItemText);
+            //ApplicationBar.MenuItems.Add(appBarMenuItem);
         }
 
+        private void SendEmail_Click(object sender, EventArgs e)
+        {
+            var email = new EmailComposeTask();
+            //email.To = FeedbackOverlay.GetFeedbackTo(this);
+            email.Subject = AppResources.EmailSubject;
+            email.Body = string.Format(AppResources.EmailBody, coordinates.Latitude, coordinates.Longitude);
 
+            email.Show();
+        }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
