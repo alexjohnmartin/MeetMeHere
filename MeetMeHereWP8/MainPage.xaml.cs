@@ -55,7 +55,7 @@ namespace MeetMeHereWP8
             }
 
             Geolocator geolocator = new Geolocator();
-            geolocator.DesiredAccuracyInMeters = 50;
+            geolocator.DesiredAccuracyInMeters = 10;
 
             try
             {
@@ -67,8 +67,8 @@ namespace MeetMeHereWP8
                 //With this 2 lines of code, the app is able to write on a Text Label the Latitude and the Longitude, given by {{Icode|geoposition}}
 
                 var coordinates = new GeoCoordinate(geoposition.Coordinate.Latitude, geoposition.Coordinate.Longitude);
-                HereMap.Center = coordinates; 
-                HereMap.ZoomLevel = 15;
+                HereMap.Center = coordinates;
+                HereMap.ZoomLevel = 18;
                 LoadingText.Visibility = System.Windows.Visibility.Collapsed; 
 
                 //TODO:put pin on the map with this current location
@@ -113,16 +113,43 @@ namespace MeetMeHereWP8
             polygon.Points.Add(new Point(25, 0));
             polygon.Fill = new SolidColorBrush(color);
 
+            int scale = 15; 
+
+            var circle1 = new Ellipse();
+            circle1.Width = 3 * scale;
+            circle1.Height = 3 * scale;
+            circle1.Fill = new SolidColorBrush(color);
+            
+            var circle2 = new Ellipse();
+            circle2.Width = 2 * scale;
+            circle2.Height = 2 * scale;
+            circle2.Fill = new SolidColorBrush(Colors.White);
+
+            var circle3 = new Ellipse();
+            circle3.Width = 1 * scale;
+            circle3.Height = 1 * scale;
+            circle3.Fill = new SolidColorBrush(color); 
+            
             // Enable marker to be tapped for location information
-            polygon.Tag = new GeoCoordinate(coordinate.Latitude, coordinate.Longitude);
+            //polygon.Tag = new GeoCoordinate(coordinate.Latitude, coordinate.Longitude);
             //polygon.MouseLeftButtonUp += new MouseButtonEventHandler(Marker_Click);
 
             // Create a MapOverlay and add marker
-            MapOverlay overlay = new MapOverlay();
-            overlay.Content = polygon;
-            overlay.GeoCoordinate = new GeoCoordinate(coordinate.Latitude, coordinate.Longitude);
-            overlay.PositionOrigin = new Point(0.0, 1.0);
-            mapLayer.Add(overlay);
+            MapOverlay overlay1 = new MapOverlay();
+            overlay1.Content = circle1;
+            overlay1.GeoCoordinate = new GeoCoordinate(coordinate.Latitude, coordinate.Longitude);
+            overlay1.PositionOrigin = new Point(0.5, 0.5);
+            mapLayer.Add(overlay1);
+            MapOverlay overlay2 = new MapOverlay();
+            overlay2.Content = circle2;
+            overlay2.GeoCoordinate = new GeoCoordinate(coordinate.Latitude, coordinate.Longitude);
+            overlay2.PositionOrigin = new Point(0.5, 0.5);
+            mapLayer.Add(overlay2);
+            MapOverlay overlay3 = new MapOverlay();
+            overlay3.Content = circle3;
+            overlay3.GeoCoordinate = new GeoCoordinate(coordinate.Latitude, coordinate.Longitude);
+            overlay3.PositionOrigin = new Point(0.5, 0.5);
+            mapLayer.Add(overlay3);
         }
 
         // Sample code for building a localized ApplicationBar
