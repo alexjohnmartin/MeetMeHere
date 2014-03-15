@@ -12,6 +12,13 @@ using System.Threading.Tasks;
 using Windows.Devices.Geolocation;
 using System.IO.IsolatedStorage;
 using Microsoft.Phone.Maps.Controls;
+using System.Windows.Media;
+using System.Device.Location;
+using System.Windows.Shapes;
+
+////based on examples from
+//http://developer.nokia.com/community/wiki/Get_Phone_Location_with_Windows_Phone_8
+//http://developer.nokia.com/resources/library/Lumia/maps-and-navigation/guide-to-the-wp8-maps-api.html
 
 namespace MeetMeHereWP8
 {
@@ -59,13 +66,13 @@ namespace MeetMeHereWP8
 
                 //With this 2 lines of code, the app is able to write on a Text Label the Latitude and the Longitude, given by {{Icode|geoposition}}
 
-                HereMap.Center = new System.Device.Location.GeoCoordinate(geoposition.Coordinate.Latitude, geoposition.Coordinate.Longitude);
+                var coordinates = new GeoCoordinate(geoposition.Coordinate.Latitude, geoposition.Coordinate.Longitude);
+                HereMap.Center = coordinates; 
                 HereMap.ZoomLevel = 15;
                 LoadingText.Visibility = System.Windows.Visibility.Collapsed; 
 
                 //TODO:put pin on the map with this current location
-
-
+                DrawMapMarkers(coordinates); 
             }
             //If an error is catch 2 are the main causes: the first is that you forgot to include ID_CAP_LOCATION in your app manifest. 
             //The second is that the user doesn't turned on the Location Services
@@ -82,7 +89,41 @@ namespace MeetMeHereWP8
             }
         }
 
+        private void DrawMapMarkers(GeoCoordinate coordinates)
+        {
+            HereMap.Layers.Clear();
+            MapLayer mapLayer = new MapLayer();
+         
+            // Draw marker for current position
+            if (coordinates != null)
+            {
+                //DrawAccuracyRadius(mapLayer);
+                DrawMapMarker(coordinates, Colors.Red, mapLayer);
+            }
+         
+            HereMap.Layers.Add(mapLayer);
+        }
 
+        private void DrawMapMarker(GeoCoordinate coordinate, Color color, MapLayer mapLayer)
+        {
+            // Create a map marker
+            Polygon polygon = new Polygon();
+            polygon.Points.Add(new Point(0, 0));
+            polygon.Points.Add(new Point(0, 75));
+            polygon.Points.Add(new Point(25, 0));
+            polygon.Fill = new SolidColorBrush(color);
+
+            // Enable marker to be tapped for location information
+            polygon.Tag = new GeoCoordinate(coordinate.Latitude, coordinate.Longitude);
+            //polygon.MouseLeftButtonUp += new MouseButtonEventHandler(Marker_Click);
+
+            // Create a MapOverlay and add marker
+            MapOverlay overlay = new MapOverlay();
+            overlay.Content = polygon;
+            overlay.GeoCoordinate = new GeoCoordinate(coordinate.Latitude, coordinate.Longitude);
+            overlay.PositionOrigin = new Point(0.0, 1.0);
+            mapLayer.Add(overlay);
+        }
 
         // Sample code for building a localized ApplicationBar
         //private void BuildLocalizedApplicationBar()
