@@ -125,6 +125,24 @@ namespace MeetMeHereWP8.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Location is disabled.
+        /// </summary>
+        public static string ErrorLocationDisabled {
+            get {
+                return ResourceManager.GetString("ErrorLocationDisabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Location is disabled in phone settings.
+        /// </summary>
+        public static string ErrorLocationDisabledInPhoneSettings {
+            get {
+                return ResourceManager.GetString("ErrorLocationDisabledInPhoneSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Getting your location....
         /// </summary>
         public static string LoadingLocation {

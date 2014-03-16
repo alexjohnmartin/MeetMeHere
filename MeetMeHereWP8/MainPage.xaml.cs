@@ -56,16 +56,23 @@ namespace MeetMeHereWP8
             InitializeComponent();
             ApplicationBar = new ApplicationBar();
 
+            //FeedbackOverlay.VisibilityChanged += FeedbackOverlay_VisibilityChanged;
+
             geolocator = new Geolocator();
             geolocator.DesiredAccuracyInMeters = 10;
 
             this.Loaded += MainPage_Loaded;
         }
 
-        void MainPage_Loaded(object sender, RoutedEventArgs e)
+        private void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
             GetLocation_Click(sender, e); 
         }
+
+        //private void FeedbackOverlay_VisibilityChanged(object sender, EventArgs e)
+        //{
+        //    ApplicationBar.IsVisible = (FeedbackOverlay.Visibility != Visibility.Visible);
+        //}
 
         private async void GetLocation_Click(object sender, EventArgs e)
         {
@@ -73,6 +80,9 @@ namespace MeetMeHereWP8
             if ((bool)IsolatedStorageSettings.ApplicationSettings["LocationConsent"] != true)
             {
                 // The user has opted out of Location.
+                LoadingBlock.Visibility = System.Windows.Visibility.Collapsed; 
+                ErrorBlock.Visibility = System.Windows.Visibility.Visible;
+                ErrorText.Text = AppResources.ErrorLocationDisabled; 
                 return;
             }
 
@@ -102,14 +112,16 @@ namespace MeetMeHereWP8
             //The second is that the user doesn't turned on the Location Services
             catch (Exception ex)
             {
-                if ((uint)ex.HResult == 0x80004004)
-                {
-                    MessageBox.Show("Location is disabled in phone settings.");
-                }
+                //if ((uint)ex.HResult == 0x80004004)
+                //{
+                    LoadingBlock.Visibility = System.Windows.Visibility.Collapsed;
+                    ErrorBlock.Visibility = System.Windows.Visibility.Visible;
+                    ErrorText.Text = AppResources.ErrorLocationDisabledInPhoneSettings; 
+                //}
                 //else
-                {
+                //{
                     // something else happened during the acquisition of the location
-                }
+                //}
             }
         }
 
@@ -203,7 +215,7 @@ namespace MeetMeHereWP8
             //ApplicationBar.MenuItems.Add(appBarMenuItem);
 
             //settings
-            //credits
+            //about
             //review
             //email me
         }

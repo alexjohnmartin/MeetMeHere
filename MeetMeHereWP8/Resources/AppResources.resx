@@ -150,6 +150,13 @@ http://image.maps.cit.api.here.com/mia/1.6/mapview?app_id=DemoAppId01082013GAL&a
   <data name="LoadingLocation" xml:space="preserve">
     <value>Getting your location...</value>
   </data>
+  <data name="ErrorLocationDisabled" xml:space="preserve">
+    <value>Location is disabled</value>
+    <comment>Error shown if user doesn't allow location to be used</comment>
+  </data>
+  <data name="ErrorLocationDisabledInPhoneSettings" xml:space="preserve">
+    <value>Location is disabled in phone settings</value>
+  </data>
   <data name="LocationPrivacyPolicyBody" xml:space="preserve">
     <value>Can this application use your location?</value>
     <comment>Body of message box prompting whether app can use user's location</comment>
