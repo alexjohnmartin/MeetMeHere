@@ -211,13 +211,18 @@ namespace MeetMeHereWP8
             }
 
             // Create a new menu item with the localized string from AppResources.
-            //ApplicationBarMenuItem appBarMenuItem = new ApplicationBarMenuItem(AppResources.AppBarMenuItemText);
-            //ApplicationBar.MenuItems.Add(appBarMenuItem);
+            var aboutMenuItem = new ApplicationBarMenuItem(AppResources.AppBarAboutMenuItemText);
+            aboutMenuItem.Click += aboutMenuItem_Click;
+            ApplicationBar.MenuItems.Add(aboutMenuItem);
 
             //settings
-            //about
             //review
             //email me
+        }
+
+        private void aboutMenuItem_Click(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/AboutPage.xaml", UriKind.Relative));
         }
 
         private void SendEmail_Click(object sender, EventArgs e)

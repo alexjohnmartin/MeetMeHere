@@ -61,20 +61,20 @@ namespace MeetMeHereWP8.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to about.
+        /// </summary>
+        public static string AppBarAboutMenuItemText {
+            get {
+                return ResourceManager.GetString("AppBarAboutMenuItemText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to send email.
         /// </summary>
         public static string AppBarEmailButtonText {
             get {
                 return ResourceManager.GetString("AppBarEmailButtonText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Menu Item.
-        /// </summary>
-        public static string AppBarMenuItemText {
-            get {
-                return ResourceManager.GetString("AppBarMenuItemText", resourceCulture);
             }
         }
         

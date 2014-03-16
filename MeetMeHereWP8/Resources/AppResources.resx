@@ -131,8 +131,8 @@
   <data name="AppBarRefreshButtonText" xml:space="preserve">
     <value>refresh</value>
   </data>
-  <data name="AppBarMenuItemText" xml:space="preserve">
-    <value>Menu Item</value>
+  <data name="AppBarAboutMenuItemText" xml:space="preserve">
+    <value>about</value>
   </data>
   <data name="AppBarEmailButtonText" xml:space="preserve">
     <value>send email</value>

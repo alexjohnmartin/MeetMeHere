@@ -73,7 +73,7 @@
                               Grid.RowSpan="2"
                               FeedbackTo="alex.john.martin@gmail.com"
                               ApplicationName="Meet Me Here"
-                              CompanyName="Nocturnal Tendencies"/>
+                              CompanyName="Nocturnal Tendencies" Margin="0,-2,0,2"/>
 
     </Grid>
 
