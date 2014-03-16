@@ -150,4 +150,12 @@ http://image.maps.cit.api.here.com/mia/1.6/mapview?app_id=DemoAppId01082013GAL&a
   <data name="LoadingLocation" xml:space="preserve">
     <value>Getting your location...</value>
   </data>
+  <data name="LocationPrivacyPolicyBody" xml:space="preserve">
+    <value>Can this application use your location?</value>
+    <comment>Body of message box prompting whether app can use user's location</comment>
+  </data>
+  <data name="LocationPrivacyPolicyTitle" xml:space="preserve">
+    <value>Location</value>
+    <comment>Title of message box prompting whether app can use user's location</comment>
+  </data>
 </root>

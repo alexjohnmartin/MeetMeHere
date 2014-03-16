@@ -134,6 +134,24 @@ namespace MeetMeHereWP8.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Can this application use your location?.
+        /// </summary>
+        public static string LocationPrivacyPolicyBody {
+            get {
+                return ResourceManager.GetString("LocationPrivacyPolicyBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Location.
+        /// </summary>
+        public static string LocationPrivacyPolicyTitle {
+            get {
+                return ResourceManager.GetString("LocationPrivacyPolicyTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LeftToRight.
         /// </summary>
         public static string ResourceFlowDirection {

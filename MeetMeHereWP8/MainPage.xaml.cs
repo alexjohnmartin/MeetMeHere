@@ -201,6 +201,11 @@ namespace MeetMeHereWP8
             // Create a new menu item with the localized string from AppResources.
             //ApplicationBarMenuItem appBarMenuItem = new ApplicationBarMenuItem(AppResources.AppBarMenuItemText);
             //ApplicationBar.MenuItems.Add(appBarMenuItem);
+
+            //settings
+            //credits
+            //review
+            //email me
         }
 
         private void SendEmail_Click(object sender, EventArgs e)
@@ -239,7 +244,7 @@ namespace MeetMeHereWP8
                 else
                 {
                     //If they didn't we ask for it
-                    MessageBoxResult result = MessageBox.Show("Can I use your position?", "Location", MessageBoxButton.OKCancel);
+                    MessageBoxResult result = MessageBox.Show(AppResources.LocationPrivacyPolicyBody, AppResources.LocationPrivacyPolicyTitle, MessageBoxButton.OKCancel);
 
                     if (result == MessageBoxResult.OK)
                     {
