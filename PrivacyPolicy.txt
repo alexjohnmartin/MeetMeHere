@@ -1,0 +1,7 @@
+Privacy policy
+====================
+
+This app never stores your location. 
+It never transmits your location to anyone, it just allows you to send it via other applications. 
+
+This app never shares your personal information.

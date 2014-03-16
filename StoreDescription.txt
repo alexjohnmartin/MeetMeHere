@@ -1,0 +1,8 @@
+Meeting with someone? Want to send them a map of where you are? 
+
+MeetMeHere lets you email a map with your current location pin-pointed on it. 
+
+
+Privacy policy
+=====================
+Please note: this app does NOT store your location, and it does NOT share it with anyone other than who you explicity choose to send it to.
