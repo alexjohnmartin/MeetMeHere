@@ -67,7 +67,7 @@ namespace MeetMeHereWP8
 
             HereMap.Layers.Clear();
             BuildLocalizedApplicationBar(false); 
-            LoadingText.Visibility = System.Windows.Visibility.Visible; 
+            LoadingBlock.Visibility = System.Windows.Visibility.Visible; 
 
             Geolocator geolocator = new Geolocator();
             geolocator.DesiredAccuracyInMeters = 10;
@@ -82,7 +82,7 @@ namespace MeetMeHereWP8
                 coordinates = new GeoCoordinate(geoposition.Coordinate.Latitude, geoposition.Coordinate.Longitude);
                 HereMap.Center = coordinates;
                 HereMap.ZoomLevel = 18;
-                LoadingText.Visibility = System.Windows.Visibility.Collapsed; 
+                LoadingBlock.Visibility = System.Windows.Visibility.Collapsed; 
 
                 DrawMapMarkers(coordinates);
                 BuildLocalizedApplicationBar(true); 
