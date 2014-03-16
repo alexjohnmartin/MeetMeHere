@@ -107,7 +107,7 @@ namespace MeetMeHereWP8.Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to I&apos;m waiting for you here:
-        ///http://image.maps.cit.api.here.com/mia/1.6/mapview?app_id=DemoAppId01082013GAL&amp;app_code=AJKnXv84fjrb0KIHawS0Tg&amp;c={0},{1}&amp;z=18&amp;w=800&amp;h=800.
+        ///http://image.maps.cit.api.here.com/mia/1.6/mapview?app_id=DemoAppId01082013GAL&amp;app_code=AJKnXv84fjrb0KIHawS0Tg&amp;c={0},{1}&amp;z={3}&amp;w={4}&amp;h={5}&amp;t={2}.
         /// </summary>
         public static string EmailBody {
             get {

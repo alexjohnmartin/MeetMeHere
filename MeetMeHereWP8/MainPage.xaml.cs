@@ -17,9 +17,16 @@ using System.Device.Location;
 using System.Windows.Shapes;
 using Microsoft.Phone.Tasks;
 
-////based on examples from
+////based on examples from...
+
+//phone location
 //http://developer.nokia.com/community/wiki/Get_Phone_Location_with_Windows_Phone_8
+
+//showing maps control
 //http://developer.nokia.com/resources/library/Lumia/maps-and-navigation/guide-to-the-wp8-maps-api.html
+
+//REST API of the Nokia Here Maps
+//https://developer.here.com/rest-apis/documentation/enterprise-map-image
 
 //world map image
 //http://www.publicdomainpictures.net/view-image.php?image=1967
@@ -34,6 +41,10 @@ namespace MeetMeHereWP8
 {
     public partial class MainPage : PhoneApplicationPage
     {
+        const int mapStyle = 3; //rendered map style - hybrid view
+        const int zoom = 18; //rendered map zoom level
+        const int mapWidth = 600; //rendered map width
+        const int mapHeight = 600; //rendered map height
         Geolocator geolocator = null;
         GeoCoordinate coordinates = null;
         ApplicationBarIconButton smsButton;
@@ -194,12 +205,26 @@ namespace MeetMeHereWP8
 
         private void SendEmail_Click(object sender, EventArgs e)
         {
-            var email = new EmailComposeTask();
-            //email.To = FeedbackOverlay.GetFeedbackTo(this);
-            email.Subject = AppResources.EmailSubject;
-            email.Body = string.Format(AppResources.EmailBody, coordinates.Latitude, coordinates.Longitude);
+            var mapCoordinates = HereMap.Center;
+            var mapStyle = GetStyleNumber(HereMap.CartographicMode);
+            var mapZoom = HereMap.ZoomLevel; 
 
+            var email = new EmailComposeTask();
+            email.Subject = AppResources.EmailSubject;
+            email.Body = string.Format(AppResources.EmailBody, mapCoordinates.Latitude, mapCoordinates.Longitude, mapStyle, mapZoom, mapWidth, mapHeight);
             email.Show();
+        }
+
+        private object GetStyleNumber(MapCartographicMode mapCartographicMode)
+        {
+            switch (mapCartographicMode)
+            {
+                case MapCartographicMode.Road: return 0;
+                case MapCartographicMode.Aerial: return 1;
+                case MapCartographicMode.Hybrid: return 3;
+                case MapCartographicMode.Terrain: return 2; 
+                default: return 3; 
+            }
         }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
