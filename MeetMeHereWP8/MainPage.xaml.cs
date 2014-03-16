@@ -21,6 +21,15 @@ using Microsoft.Phone.Tasks;
 //http://developer.nokia.com/community/wiki/Get_Phone_Location_with_Windows_Phone_8
 //http://developer.nokia.com/resources/library/Lumia/maps-and-navigation/guide-to-the-wp8-maps-api.html
 
+//world map image
+//http://www.publicdomainpictures.net/view-image.php?image=1967
+
+//setting splash screen
+//http://stackoverflow.com/questions/19450446/how-to-set-splash-screen-in-window-phone-8-application-development
+
+//app bar images
+//C:\Program Files (x86)\Microsoft SDKs\Windows Phone\v8.0\Icons\Dark
+
 namespace MeetMeHereWP8
 {
     public partial class MainPage : PhoneApplicationPage
