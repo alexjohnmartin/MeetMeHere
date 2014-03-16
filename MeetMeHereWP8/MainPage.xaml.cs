@@ -241,42 +241,25 @@ namespace MeetMeHereWP8
                 {
                     return;
                 }
-                else
-                {
-                    //If they didn't we ask for it
-                    MessageBoxResult result = MessageBox.Show(AppResources.LocationPrivacyPolicyBody, AppResources.LocationPrivacyPolicyTitle, MessageBoxButton.OKCancel);
+            }
 
-                    if (result == MessageBoxResult.OK)
-                    {
-                        IsolatedStorageSettings.ApplicationSettings["LocationConsent"] = true;
-                    }
-                    else
-                    {
-                        IsolatedStorageSettings.ApplicationSettings["LocationConsent"] = false;
-                    }
+            PromptIfWeCanUseUsersLocation(); 
+        }
 
-                    IsolatedStorageSettings.ApplicationSettings.Save();
-                }
+        private void PromptIfWeCanUseUsersLocation()
+        {
+            //If they didn't we ask for it
+            MessageBoxResult result = MessageBox.Show(AppResources.LocationPrivacyPolicyBody, AppResources.LocationPrivacyPolicyTitle, MessageBoxButton.OKCancel);
+            if (result == MessageBoxResult.OK)
+            {
+                IsolatedStorageSettings.ApplicationSettings["LocationConsent"] = true;
             }
             else
             {
-                //Ask for user agreement in using their position
-                MessageBoxResult result =
-                            MessageBox.Show("Can I use your position?",
-                            "Location",
-                            MessageBoxButton.OKCancel);
-
-                if (result == MessageBoxResult.OK)
-                {
-                    IsolatedStorageSettings.ApplicationSettings["LocationConsent"] = true;
-                }
-                else
-                {
-                    IsolatedStorageSettings.ApplicationSettings["LocationConsent"] = false;
-                }
-
-                IsolatedStorageSettings.ApplicationSettings.Save();
+                IsolatedStorageSettings.ApplicationSettings["LocationConsent"] = false;
             }
+
+            IsolatedStorageSettings.ApplicationSettings.Save();
         }
     }
 }
