@@ -19,14 +19,32 @@ namespace MeetMeHereWP8
             var downloadUrl = string.Format(baseUrl, latitude, longitude);
             WebClient client = new WebClient();
             client.DownloadStringCompleted += new DownloadStringCompletedEventHandler(LoadXmlCallback);
-            client.DownloadStringAsync(new Uri("http://www.myurl.com/myFile.txt"));
+            client.DownloadStringAsync(new Uri(downloadUrl));
         }
 
         private void LoadXmlCallback(object sender, DownloadStringCompletedEventArgs e)
         {
             var textData = (string)e.Result;
+            string addressLabel = string.Empty; 
 
-            _action.Invoke(new GeocodingInfo()); 
+            if (textData.Contains("<Address>"))
+            {
+                var startIndex = textData.IndexOf("<Address>") + 9; 
+                var endIndex = textData.IndexOf("</Address>"); 
+                var addressText = textData.Substring(
+                        startIndex, 
+                        endIndex - startIndex
+                    ).Trim(); 
+
+                startIndex = addressText.IndexOf("<Label>") + 7; 
+                endIndex = addressText.IndexOf("</Label>"); 
+                addressLabel = addressText.Substring(
+                        startIndex, 
+                        endIndex - startIndex
+                    ).Trim(); 
+            }
+
+            _action.Invoke(new GeocodingInfo { AddressLabel = addressLabel }); 
         }
     }
 }

@@ -7,6 +7,6 @@ namespace MeetMeHereWP8
 {
     internal class GeocodingInfo
     {
-
+        public string AddressLabel { get; set; }
     }
 }

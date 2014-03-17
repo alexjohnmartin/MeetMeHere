@@ -248,16 +248,15 @@ namespace MeetMeHereWP8
                 relocateButton.Click += GetLocation_Click;
                 ApplicationBar.Buttons.Add(relocateButton);
 
-                // Create a new button and set the text value to the localized string from AppResources.
                 var emailButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.email.png", UriKind.Relative));
                 emailButton.Text = AppResources.AppBarEmailButtonText;
                 emailButton.Click += SendEmail_Click;
                 ApplicationBar.Buttons.Add(emailButton);
 
-                //TODO:SMS button
-                //var smsButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.phone.png", UriKind.Relative));
-                //smsButton.Text = "send text"; //AppResources.AppBarButtonText;
-                //ApplicationBar.Buttons.Add(smsButton);
+                var smsButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.phone.png", UriKind.Relative));
+                smsButton.Text = AppResources.AppBarSmsButtonText;
+                smsButton.Click += SendSms_Click; 
+                ApplicationBar.Buttons.Add(smsButton);
             }
 
             // Create a new menu item with the localized string from AppResources.
@@ -275,10 +274,16 @@ namespace MeetMeHereWP8
 
         private void SendSms_Click(object sender, EventArgs e)
         {
+            var geocoding = new GeocodingHelper();
+            geocoding.GetGeocodingInfo(coordinates.Latitude, coordinates.Longitude, SendSms); 
+        }
+
+        private void SendSms(GeocodingInfo info)
+        {
             SmsComposeTask smsComposeTask = new SmsComposeTask();
 
-            smsComposeTask.To = "";
-            smsComposeTask.Body = "Meet me at...";
+            //smsComposeTask.To = "";
+            smsComposeTask.Body = string.Format(AppResources.SmsTemplate, info.AddressLabel); 
             smsComposeTask.Show();
         }
 
@@ -296,7 +301,17 @@ namespace MeetMeHereWP8
 
             var email = new EmailComposeTask();
             email.Subject = AppResources.EmailSubject;
-            email.Body = string.Format(AppResources.EmailBody, mapCoordinates.Latitude, mapCoordinates.Longitude, mapStyle, mapZoom, mapWidth, mapHeight, HereMapsAppId, HereMapsAppCode);
+            email.Body = string.Format(AppResources.EmailBody, 
+                mapCoordinates.Latitude, 
+                mapCoordinates.Longitude, 
+                mapStyle, 
+                mapZoom, 
+                mapWidth,
+                mapHeight, 
+                HereMapsAppId, 
+                HereMapsAppCode, 
+                info.AddressLabel);
+
             email.Show();
         }
 

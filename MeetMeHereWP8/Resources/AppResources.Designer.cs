@@ -106,8 +106,8 @@ namespace MeetMeHereWP8.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to I&apos;m waiting for you here:
-        ///http://image.maps.cit.api.here.com/mia/1.6/mapview?app_id={6}&amp;app_code={7}&amp;c={0},{1}&amp;z={3}&amp;w={4}&amp;h={5}&amp;t={2}.
+        ///   Looks up a localized string similar to I&apos;m waiting for at {8}
+        ///Map: http://image.maps.cit.api.here.com/mia/1.6/mapview?app_id={6}&amp;app_code={7}&amp;c={0},{1}&amp;z={3}&amp;w={4}&amp;h={5}&amp;t={2}.
         /// </summary>
         public static string EmailBody {
             get {
@@ -184,6 +184,15 @@ namespace MeetMeHereWP8.Resources {
         public static string ResourceLanguage {
             get {
                 return ResourceManager.GetString("ResourceLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Meet me at {0}.
+        /// </summary>
+        public static string SmsTemplate {
+            get {
+                return ResourceManager.GetString("SmsTemplate", resourceCulture);
             }
         }
     }
