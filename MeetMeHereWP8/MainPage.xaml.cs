@@ -48,6 +48,9 @@ using System.Windows.Media.Imaging;
 //downloading an image
 //http://stackoverflow.com/questions/7712160/how-do-i-download-images-jpg-via-a-webclient-and-save-to-isolated-storage-on-w
 
+//sending an SMS
+//http://stackoverflow.com/questions/13587507/programmatically-send-sms-in-windows-phone-8
+
 //app bar images
 //C:\Program Files (x86)\Microsoft SDKs\Windows Phone\v8.0\Icons\Dark
 
@@ -79,19 +82,7 @@ namespace MeetMeHereWP8
 
             this.Loaded += MainPage_Loaded;
             ApplicationBar = new ApplicationBar();
-
-            //SetupScheduledTileUpdate(); 
         }
-
-        //private void SetupScheduledTileUpdate()
-        //{
-        //    ShellTileSchedule SampleTileSchedule = new ShellTileSchedule();
-        //    SampleTileSchedule.Recurrence = UpdateRecurrence.Interval;
-        //    SampleTileSchedule.Interval = UpdateInterval.EveryHour;
-        //    SampleTileSchedule.RemoteImageUri = new Uri(@"isostore:/Shared/ShellContent/mapview-wide.jpg");
-        //    SampleTileSchedule.Start();
-        //    TileScheduleRunning = true;
-        //}
 
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
@@ -282,7 +273,22 @@ namespace MeetMeHereWP8
             NavigationService.Navigate(new Uri("/AboutPage.xaml", UriKind.Relative));
         }
 
+        private void SendSms_Click(object sender, EventArgs e)
+        {
+            SmsComposeTask smsComposeTask = new SmsComposeTask();
+
+            smsComposeTask.To = "";
+            smsComposeTask.Body = "Meet me at...";
+            smsComposeTask.Show();
+        }
+
         private void SendEmail_Click(object sender, EventArgs e)
+        {
+            var geocoding = new GeocodingHelper();
+            geocoding.GetGeocodingInfo(coordinates.Latitude, coordinates.Longitude, SendEmail); 
+        }
+
+        private void SendEmail(GeocodingInfo info)
         {
             var mapCoordinates = HereMap.Center;
             var mapStyle = GetStyleNumber(HereMap.CartographicMode);
