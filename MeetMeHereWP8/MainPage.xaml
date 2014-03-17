@@ -54,7 +54,7 @@
             </Grid>
 
             <Grid x:Name="ErrorBlock" Visibility="Collapsed">
-                <Rectangle HorizontalAlignment="Center" Width="300" Height="100" Opacity="0.8" >
+                <Rectangle HorizontalAlignment="Center" Width="500" Height="100" Opacity="0.8" >
                     <Rectangle.Fill>
                         <SolidColorBrush Color="Gray" />
                     </Rectangle.Fill>

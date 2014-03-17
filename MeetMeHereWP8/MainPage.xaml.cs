@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Device.Location;
 using System.Windows.Shapes;
 using Microsoft.Phone.Tasks;
+using System.Windows.Media.Imaging;
 
 ////based on examples from...
 
@@ -37,6 +38,16 @@ using Microsoft.Phone.Tasks;
 //dealing with back button
 //http://stackoverflow.com/questions/19578634/windows-phone-back-button-and-page-instance-creation
 
+//live tiles
+//http://dotnet.dzone.com/articles/how-add-primary-live-tile-your
+//localizing the app tile
+//http://msdn.microsoft.com/en-us/library/windowsphone/develop/ff967550%28v=vs.105%29.aspx
+//updating tiles
+//http://msdn.microsoft.com/en-us/library/windowsphone/develop/ff769548%28v=vs.105%29.aspx
+
+//downloading an image
+//http://stackoverflow.com/questions/7712160/how-do-i-download-images-jpg-via-a-webclient-and-save-to-isolated-storage-on-w
+
 //app bar images
 //C:\Program Files (x86)\Microsoft SDKs\Windows Phone\v8.0\Icons\Dark
 
@@ -50,11 +61,14 @@ namespace MeetMeHereWP8
         const int mapHeight = 600; //rendered map height
         const string HereMapsAppId = "PC3CUQZkDFZ46i8ifPIL";
         const string HereMapsAppCode = "u_JokeYoH5JkfpvqL2CuFA";
+
+        bool loading = true;
         Geolocator geolocator = null;
         GeoCoordinate coordinates = null;
+        bool TileScheduleRunning = false; 
+        string downloadUrl = string.Empty; 
         ApplicationBarIconButton smsButton;
         ApplicationBarIconButton emailButton;
-        bool loading = true; 
 
         public MainPage()
         {
@@ -65,7 +79,19 @@ namespace MeetMeHereWP8
 
             this.Loaded += MainPage_Loaded;
             ApplicationBar = new ApplicationBar();
+
+            //SetupScheduledTileUpdate(); 
         }
+
+        //private void SetupScheduledTileUpdate()
+        //{
+        //    ShellTileSchedule SampleTileSchedule = new ShellTileSchedule();
+        //    SampleTileSchedule.Recurrence = UpdateRecurrence.Interval;
+        //    SampleTileSchedule.Interval = UpdateInterval.EveryHour;
+        //    SampleTileSchedule.RemoteImageUri = new Uri(@"isostore:/Shared/ShellContent/mapview-wide.jpg");
+        //    SampleTileSchedule.Start();
+        //    TileScheduleRunning = true;
+        //}
 
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
@@ -108,7 +134,8 @@ namespace MeetMeHereWP8
                 LoadingBlock.Visibility = System.Windows.Visibility.Collapsed; 
 
                 DrawMapMarkers(coordinates);
-                BuildLocalizedApplicationBar(true); 
+                BuildLocalizedApplicationBar(true);
+                StartDownloadMapImage(coordinates); 
             }
             //If an error is catch 2 are the main causes: the first is that you forgot to include ID_CAP_LOCATION in your app manifest. 
             //The second is that the user doesn't turned on the Location Services
@@ -124,6 +151,35 @@ namespace MeetMeHereWP8
                 //{
                     // something else happened during the acquisition of the location
                 //}
+            }
+        }
+
+        private void StartDownloadMapImage(GeoCoordinate coordinates)
+        {
+            var downloader = new DownloadAndSaveImage();
+            downloader.DownloadMapImages(coordinates.Latitude, coordinates.Longitude, HereMap.ZoomLevel, GetStyleNumber(HereMap.CartographicMode), HereMapsAppId, HereMapsAppCode); 
+        }
+
+        private void webClient_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
+        {
+            try
+            {
+                if (e.Error != null) return;
+                if (e.Cancelled == true) return;
+                
+                var image = new BitmapImage(new Uri("" + downloadUrl));
+                var wb = new WriteableBitmap(image);
+                using (IsolatedStorageFile iso = IsolatedStorageFile.GetUserStoreForApplication())
+                {
+                    using (IsolatedStorageFileStream isostream = iso.CreateFile(@"Assets\Tiles\mapview.jpg"))
+                    {
+                        Extensions.SaveJpeg(wb, isostream, wb.PixelWidth, wb.PixelHeight, 0, 85);
+                        isostream.Close();
+                    }
+                }
+            }
+            catch
+            {
             }
         }
 
@@ -238,18 +294,6 @@ namespace MeetMeHereWP8
             email.Show();
         }
 
-        private object GetStyleNumber(MapCartographicMode mapCartographicMode)
-        {
-            switch (mapCartographicMode)
-            {
-                case MapCartographicMode.Road: return 0;
-                case MapCartographicMode.Aerial: return 1;
-                case MapCartographicMode.Hybrid: return 3;
-                case MapCartographicMode.Terrain: return 2; 
-                default: return 3; 
-            }
-        }
-
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             if (e.NavigationMode == NavigationMode.New)
@@ -285,6 +329,18 @@ namespace MeetMeHereWP8
             }
 
             IsolatedStorageSettings.ApplicationSettings.Save();
+        }
+
+        private int GetStyleNumber(MapCartographicMode mapCartographicMode)
+        {
+            switch (mapCartographicMode)
+            {
+                case MapCartographicMode.Road: return 0;
+                case MapCartographicMode.Aerial: return 1;
+                case MapCartographicMode.Hybrid: return 3;
+                case MapCartographicMode.Terrain: return 2;
+                default: return 3;
+            }
         }
     }
 }
