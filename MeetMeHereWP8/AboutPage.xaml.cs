@@ -30,9 +30,10 @@ namespace MeetMeHereWP8
 
         public void StoreButton_Click(object sender, EventArgs e)
         {
+            var currentCulture = System.Threading.Thread.CurrentThread.CurrentCulture; 
             var task = new WebBrowserTask
             {
-                Uri = new Uri("https://twitter.com/AlexJohnMartin", UriKind.Absolute)
+                Uri = new Uri(string.Format("http://www.windowsphone.com/{0}/store/publishers?publisherId=nocturnal%2Btendencies&appId=63cb6767-4940-4fa1-be8c-a7f58e455c3b", currentCulture.Name), UriKind.Absolute)
             };
             task.Show();
         }
@@ -40,7 +41,6 @@ namespace MeetMeHereWP8
         public void ReviewButton_Click(object sender, EventArgs e)
         {
             FeedbackHelper.Default.Reviewed();
-
             var marketplace = new MarketplaceReviewTask();
             marketplace.Show();
         }
