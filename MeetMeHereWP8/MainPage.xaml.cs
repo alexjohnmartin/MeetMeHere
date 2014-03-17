@@ -48,18 +48,17 @@ namespace MeetMeHereWP8
         const int zoom = 18; //rendered map zoom level
         const int mapWidth = 600; //rendered map width
         const int mapHeight = 600; //rendered map height
+        const string HereMapsAppId = "PC3CUQZkDFZ46i8ifPIL";
+        const string HereMapsAppCode = "u_JokeYoH5JkfpvqL2CuFA";
         Geolocator geolocator = null;
         GeoCoordinate coordinates = null;
         ApplicationBarIconButton smsButton;
         ApplicationBarIconButton emailButton;
         bool loading = true; 
 
-        // Constructor
         public MainPage()
         {
             InitializeComponent();
-
-            //FeedbackOverlay.VisibilityChanged += FeedbackOverlay_VisibilityChanged;
 
             geolocator = new Geolocator();
             geolocator.DesiredAccuracyInMeters = 10;
@@ -76,11 +75,6 @@ namespace MeetMeHereWP8
                 GetLocation_Click(sender, e);
             }
         }
-
-        //private void FeedbackOverlay_VisibilityChanged(object sender, EventArgs e)
-        //{
-        //    ApplicationBar.IsVisible = (FeedbackOverlay.Visibility != Visibility.Visible);
-        //}
 
         private async void GetLocation_Click(object sender, EventArgs e)
         {
@@ -197,7 +191,6 @@ namespace MeetMeHereWP8
 
         private void BuildLocalizedApplicationBar(bool locationFound)
         {
-            //ApplicationBar.MenuItems.Clear();
             ApplicationBar = new ApplicationBar();
 
             if (locationFound)
@@ -214,7 +207,7 @@ namespace MeetMeHereWP8
                 emailButton.Click += SendEmail_Click;
                 ApplicationBar.Buttons.Add(emailButton);
 
-                //// Create a new button and set the text value to the localized string from AppResources.
+                //TODO:SMS button
                 //var smsButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.phone.png", UriKind.Relative));
                 //smsButton.Text = "send text"; //AppResources.AppBarButtonText;
                 //ApplicationBar.Buttons.Add(smsButton);
@@ -225,9 +218,7 @@ namespace MeetMeHereWP8
             aboutMenuItem.Click += aboutMenuItem_Click;
             ApplicationBar.MenuItems.Add(aboutMenuItem);
 
-            //settings
-            //review
-            //email me
+            //TODO:settings
         }
 
         private void aboutMenuItem_Click(object sender, EventArgs e)
@@ -243,7 +234,7 @@ namespace MeetMeHereWP8
 
             var email = new EmailComposeTask();
             email.Subject = AppResources.EmailSubject;
-            email.Body = string.Format(AppResources.EmailBody, mapCoordinates.Latitude, mapCoordinates.Longitude, mapStyle, mapZoom, mapWidth, mapHeight);
+            email.Body = string.Format(AppResources.EmailBody, mapCoordinates.Latitude, mapCoordinates.Longitude, mapStyle, mapZoom, mapWidth, mapHeight, HereMapsAppId, HereMapsAppCode);
             email.Show();
         }
 

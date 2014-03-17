@@ -142,7 +142,7 @@
   </data>
   <data name="EmailBody" xml:space="preserve">
     <value>I'm waiting for you here:
-http://image.maps.cit.api.here.com/mia/1.6/mapview?app_id=DemoAppId01082013GAL&amp;app_code=AJKnXv84fjrb0KIHawS0Tg&amp;c={0},{1}&amp;z={3}&amp;w={4}&amp;h={5}&amp;t={2}</value>
+http://image.maps.cit.api.here.com/mia/1.6/mapview?app_id={6}&amp;app_code={7}&amp;c={0},{1}&amp;z={3}&amp;w={4}&amp;h={5}&amp;t={2}</value>
   </data>
   <data name="EmailSubject" xml:space="preserve">
     <value>Meet me here</value>
