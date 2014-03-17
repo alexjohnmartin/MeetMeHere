@@ -34,6 +34,9 @@ using Microsoft.Phone.Tasks;
 //setting splash screen
 //http://stackoverflow.com/questions/19450446/how-to-set-splash-screen-in-window-phone-8-application-development
 
+//dealing with back button
+//http://stackoverflow.com/questions/19578634/windows-phone-back-button-and-page-instance-creation
+
 //app bar images
 //C:\Program Files (x86)\Microsoft SDKs\Windows Phone\v8.0\Icons\Dark
 
@@ -49,12 +52,12 @@ namespace MeetMeHereWP8
         GeoCoordinate coordinates = null;
         ApplicationBarIconButton smsButton;
         ApplicationBarIconButton emailButton;
+        bool loading = true; 
 
         // Constructor
         public MainPage()
         {
             InitializeComponent();
-            ApplicationBar = new ApplicationBar();
 
             //FeedbackOverlay.VisibilityChanged += FeedbackOverlay_VisibilityChanged;
 
@@ -62,11 +65,16 @@ namespace MeetMeHereWP8
             geolocator.DesiredAccuracyInMeters = 10;
 
             this.Loaded += MainPage_Loaded;
+            ApplicationBar = new ApplicationBar();
         }
 
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
-            GetLocation_Click(sender, e); 
+            if (loading)
+            {
+                loading = false;
+                GetLocation_Click(sender, e);
+            }
         }
 
         //private void FeedbackOverlay_VisibilityChanged(object sender, EventArgs e)
@@ -189,7 +197,9 @@ namespace MeetMeHereWP8
 
         private void BuildLocalizedApplicationBar(bool locationFound)
         {
-            ApplicationBar.MenuItems.Clear();
+            //ApplicationBar.MenuItems.Clear();
+            ApplicationBar = new ApplicationBar();
+
             if (locationFound)
             {
                 // Create a new button and set the text value to the localized string from AppResources.
@@ -251,16 +261,23 @@ namespace MeetMeHereWP8
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
-            if (IsolatedStorageSettings.ApplicationSettings.Contains("LocationConsent"))
+            if (e.NavigationMode == NavigationMode.New)
             {
-                //User already gave us agreement for using their position
-                if ((bool)IsolatedStorageSettings.ApplicationSettings["LocationConsent"] == true)
+                if (IsolatedStorageSettings.ApplicationSettings.Contains("LocationConsent"))
                 {
-                    return;
+                    //User already gave us agreement for using their position
+                    if ((bool)IsolatedStorageSettings.ApplicationSettings["LocationConsent"] == true)
+                    {
+                        return;
+                    }
                 }
-            }
 
-            PromptIfWeCanUseUsersLocation(); 
+                PromptIfWeCanUseUsersLocation();
+            }
+            if (e.NavigationMode == NavigationMode.Back)
+            {
+                // do anything specific for back navigation here.
+            }
         }
 
         private void PromptIfWeCanUseUsersLocation()
