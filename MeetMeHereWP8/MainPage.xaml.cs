@@ -72,16 +72,33 @@ namespace MeetMeHereWP8
         string downloadUrl = string.Empty; 
         ApplicationBarIconButton smsButton;
         ApplicationBarIconButton emailButton;
+        IsolatedStorageSettings appSettings;
 
         public MainPage()
         {
             InitializeComponent();
+            appSettings = IsolatedStorageSettings.ApplicationSettings;
 
             geolocator = new Geolocator();
             geolocator.DesiredAccuracyInMeters = 10;
 
             this.Loaded += MainPage_Loaded;
             ApplicationBar = new ApplicationBar();
+
+            try
+            {
+                if (appSettings["sendCountDate"] == null ||
+                    (string)appSettings["sendCountDate"] != DateTime.Now.Date.ToShortDateString())
+                {
+                    appSettings["sendCountDate"] = DateTime.Now.Date.ToShortDateString();
+                    appSettings["sendCount"] = 0;
+                }
+            }
+            catch
+            {
+                appSettings["sendCountDate"] = DateTime.Now.Date.ToShortDateString();
+                appSettings["sendCount"] = 0;
+            }
         }
 
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
@@ -96,7 +113,7 @@ namespace MeetMeHereWP8
         private async void GetLocation_Click(object sender, EventArgs e)
         {
             //Check for the user agreement in use his position. If not, method returns.
-            if ((bool)IsolatedStorageSettings.ApplicationSettings["LocationConsent"] != true)
+            if ((bool)appSettings["LocationConsent"] != true)
             {
                 // The user has opted out of Location.
                 LoadingBlock.Visibility = System.Windows.Visibility.Collapsed; 
@@ -274,6 +291,7 @@ namespace MeetMeHereWP8
 
         private void SendSms_Click(object sender, EventArgs e)
         {
+            IncrementSendCount(); 
             var geocoding = new GeocodingHelper();
             geocoding.GetGeocodingInfo(coordinates.Latitude, coordinates.Longitude, SendSms); 
         }
@@ -289,6 +307,7 @@ namespace MeetMeHereWP8
 
         private void SendEmail_Click(object sender, EventArgs e)
         {
+            IncrementSendCount(); 
             var geocoding = new GeocodingHelper();
             geocoding.GetGeocodingInfo(coordinates.Latitude, coordinates.Longitude, SendEmail); 
         }
@@ -315,6 +334,12 @@ namespace MeetMeHereWP8
             email.Show();
         }
 
+        private void IncrementSendCount()
+        {
+            appSettings["sendCount"] = (int)appSettings["sendCount"] + 1;
+            TileHelper.SetTileData((int)appSettings["sendCount"]); 
+        }
+        
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             if (e.NavigationMode == NavigationMode.New)

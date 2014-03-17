@@ -79,22 +79,8 @@ namespace MeetMeHereWP8
             {
                 if (loadedNormalImage && loadedWideImage)
                 {
-                    var tileId = ShellTile.ActiveTiles.FirstOrDefault();
-                    if (tileId != null)
-                    {
-                        var tileData = new FlipTileData
-                        {
-                            Title = "Meet Me Here",
-                            BackContent = "Sent 0",
-                            BackgroundImage = new Uri(@"Assets\Tiles\FlipCycleTileMedium.png", UriKind.Relative),
-                            WideBackContent = "Sent 0",
-                            WideBackgroundImage = new Uri(@"Assets\Tiles\FlipCycleTileLarge.png", UriKind.Relative),
-                            BackBackgroundImage = new Uri(@"isostore:/Shared/ShellContent/mapview.jpg"),
-                            WideBackBackgroundImage = new Uri(@"isostore:/Shared/ShellContent/mapview-wide.jpg"),
-                        };
-
-                        tileId.Update(tileData);
-                    }
+                    var appSettings = IsolatedStorageSettings.ApplicationSettings; 
+                    TileHelper.SetTileData((int)appSettings["sendCount"]); 
                     return;
                 }
 
