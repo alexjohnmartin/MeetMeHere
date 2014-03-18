@@ -17,6 +17,8 @@ using System.Device.Location;
 using System.Windows.Shapes;
 using Microsoft.Phone.Tasks;
 using System.Windows.Media.Imaging;
+using Microsoft.Phone.UserData;
+using System.Windows.Controls.Primitives;
 
 ////based on examples from...
 
@@ -51,6 +53,14 @@ using System.Windows.Media.Imaging;
 //sending an SMS
 //http://stackoverflow.com/questions/13587507/programmatically-send-sms-in-windows-phone-8
 
+//getting phone contacts
+//http://msdn.microsoft.com/en-us/library/windowsphone/develop/hh286416%28v=vs.105%29.aspx
+
+//custom message box
+//http://shawnoster.com/2012/10/welcome-custommessagebox-to-the-windows-phone-toolkit/
+//custom popup
+//http://developer.nokia.com/community/wiki/How_to_use_Pop-Ups_in_Windows_Phone
+
 //app bar images
 //C:\Program Files (x86)\Microsoft SDKs\Windows Phone\v8.0\Icons\Dark
 
@@ -73,6 +83,7 @@ namespace MeetMeHereWP8
         ApplicationBarIconButton smsButton;
         ApplicationBarIconButton emailButton;
         IsolatedStorageSettings appSettings;
+        Popup contactsPopup = new Popup(); 
 
         public MainPage()
         {
@@ -293,33 +304,63 @@ namespace MeetMeHereWP8
         {
             IncrementSendCount(); 
             var geocoding = new GeocodingHelper();
-            geocoding.GetGeocodingInfo(coordinates.Latitude, coordinates.Longitude, SendSms); 
-        }
-
-        private void SendSms(GeocodingInfo info)
-        {
-            SmsComposeTask smsComposeTask = new SmsComposeTask();
-
-            //smsComposeTask.To = "";
-            smsComposeTask.Body = string.Format(AppResources.SmsTemplate, info.AddressLabel); 
-            smsComposeTask.Show();
+            geocoding.GetGeocodingInfo(coordinates.Latitude, coordinates.Longitude, FindSmsContacts); 
         }
 
         private void SendEmail_Click(object sender, EventArgs e)
         {
-            IncrementSendCount(); 
+            IncrementSendCount();
             var geocoding = new GeocodingHelper();
-            geocoding.GetGeocodingInfo(coordinates.Latitude, coordinates.Longitude, SendEmail); 
+            geocoding.GetGeocodingInfo(coordinates.Latitude, coordinates.Longitude, FindEmailContacts);
         }
 
-        private void SendEmail(GeocodingInfo info)
+        private void FindSmsContacts(GeocodingInfo info)
         {
+            Contacts cons = new Contacts();
+            cons.SearchCompleted += new EventHandler<ContactsSearchEventArgs>(SelectSmsContacts);
+            cons.SearchAsync(String.Empty, FilterKind.None, info);
+        }
+
+        private void FindEmailContacts(GeocodingInfo info)
+        {
+            Contacts cons = new Contacts();
+            cons.SearchCompleted += new EventHandler<ContactsSearchEventArgs>(SelectEmailContacts);
+            cons.SearchAsync(String.Empty, FilterKind.None, info);
+        }
+
+        private void SelectSmsContacts(object sender, ContactsSearchEventArgs e)
+        {
+            GeocodingInfo info = (GeocodingInfo)e.State;
+            ShowContactsPopup(e.Results.Where(c => c.PhoneNumbers.Any(p => p.Kind == PhoneNumberKind.Mobile)), info, SendSms);
+        }
+
+        private void SelectEmailContacts(object sender, ContactsSearchEventArgs e)
+        {
+            GeocodingInfo info = (GeocodingInfo)e.State;
+            ShowContactsPopup(e.Results.Where(c => c.EmailAddresses.Any()), info, SendEmail); 
+        }
+
+        private void SendSms(IEnumerable<Contact> contacts, GeocodingInfo info)
+        {
+            contactsPopup.IsOpen = false;
+
+            SmsComposeTask smsComposeTask = new SmsComposeTask();
+            smsComposeTask.To = string.Join<Contact>(";", contacts);
+            smsComposeTask.Body = string.Format(AppResources.SmsTemplate, info.AddressLabel, coordinates.Latitude, coordinates.Longitude);
+            smsComposeTask.Show();
+        }
+
+        private void SendEmail(IEnumerable<Contact> contacts, GeocodingInfo info)
+        {
+            contactsPopup.IsOpen = false; 
+
             var mapCoordinates = HereMap.Center;
             var mapStyle = GetStyleNumber(HereMap.CartographicMode);
-            var mapZoom = HereMap.ZoomLevel; 
-
+            var mapZoom = HereMap.ZoomLevel;
+        
             var email = new EmailComposeTask();
             email.Subject = AppResources.EmailSubject;
+            email.To = string.Join<Contact>(";", contacts);
             email.Body = string.Format(AppResources.EmailBody, 
                 mapCoordinates.Latitude, 
                 mapCoordinates.Longitude, 
@@ -387,6 +428,74 @@ namespace MeetMeHereWP8
                 case MapCartographicMode.Terrain: return 2;
                 default: return 3;
             }
+        }
+
+        internal void ShowContactsPopup(IEnumerable<Contact> contacts, GeocodingInfo info, Action<IEnumerable<Contact>, GeocodingInfo> action)
+        {
+            if (contacts.Count() == 0)
+            {
+                action(new List<Contact>(), info);
+                return; 
+            }
+
+            Border border = new Border();
+            border.BorderBrush = new SolidColorBrush(Colors.White);
+            border.BorderThickness = new Thickness(2);
+            border.Margin = new Thickness(10, 10, 10, 10);
+
+            StackPanel skt_pnl_outter = new StackPanel();
+            skt_pnl_outter.Background = new SolidColorBrush(Colors.Black);
+            skt_pnl_outter.Orientation = System.Windows.Controls.Orientation.Vertical;
+
+            TextBlock txt_blk1 = new TextBlock();
+            txt_blk1.Text = "Pick contacts to send to"; //TODO:add to resources
+            txt_blk1.TextAlignment = TextAlignment.Center;
+            txt_blk1.FontSize = 25;
+            txt_blk1.Margin = new Thickness(10, 0, 10, 0);
+            txt_blk1.Foreground = new SolidColorBrush(Colors.White);
+
+            ListBox listbox = new ListBox();
+            foreach (var contact in contacts) listbox.Items.Add(contact.DisplayName);
+            listbox.FontSize = 20;
+            //listbox.BorderBrush = new SolidColorBrush(Colors.White);
+            //listbox.BorderThickness = new Thickness(1);
+            listbox.SelectedIndex = 0;
+            listbox.MaxHeight = 400; 
+            listbox.Margin = new Thickness(20, 20, 20, 20);
+
+            //Adding control to stack panel
+            skt_pnl_outter.Children.Add(txt_blk1);
+            skt_pnl_outter.Children.Add(listbox);
+
+            StackPanel skt_pnl_inner = new StackPanel();
+            skt_pnl_inner.Orientation = System.Windows.Controls.Orientation.Horizontal;
+
+            Button btn_continue = new Button();
+            btn_continue.Content = "send"; //TODO:add to resources
+            btn_continue.Width = 215;
+            btn_continue.Click += new RoutedEventHandler((s, e) => action(new[] { contacts.ElementAt(listbox.SelectedIndex) }, info));
+
+            Button btn_cancel = new Button();
+            btn_cancel.Content = "cancel"; //TODO:add to resources
+            btn_cancel.Width = 215;
+            btn_cancel.Click += new RoutedEventHandler((s,e) => contactsPopup.IsOpen = false);
+
+            skt_pnl_inner.Children.Add(btn_continue);
+            skt_pnl_inner.Children.Add(btn_cancel);
+
+
+            skt_pnl_outter.Children.Add(skt_pnl_inner);
+
+            // Adding stackpanel  to border
+            border.Child = skt_pnl_outter;
+
+            // Adding border to pup-up
+            contactsPopup.Child = border;
+
+            contactsPopup.VerticalOffset = 100; // 400;
+            contactsPopup.HorizontalOffset = 10;
+
+            contactsPopup.IsOpen = true;
         }
     }
 }
