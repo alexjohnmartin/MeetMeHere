@@ -166,6 +166,14 @@ Map: http://image.maps.cit.api.here.com/mia/1.6/mapview?app_id={6}&amp;app_code=
     <comment>Title of message box prompting whether app can use user's location</comment>
   </data>
   <data name="SmsTemplate" xml:space="preserve">
-    <value>Meet me at {0}</value>
+    <value>Meet me at {0}. Latitude:{1}, longitude:{2}</value>
+  </data>
+  <data name="AboutText" xml:space="preserve">
+    <value>This app lets you see your location on a map and send it as an email or text message</value>
+    <comment>Application description shown on the About page</comment>
+  </data>
+  <data name="TileBackContent" xml:space="preserve">
+    <value>Sent {0} today</value>
+    <comment>Additional text shown on the live tiles, shows a count of messages sent today</comment>
   </data>
 </root>

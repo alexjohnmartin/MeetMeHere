@@ -61,6 +61,15 @@ namespace MeetMeHereWP8.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This app lets you see your location on a map and send it as an email or text message.
+        /// </summary>
+        public static string AboutText {
+            get {
+                return ResourceManager.GetString("AboutText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to about.
         /// </summary>
         public static string AppBarAboutMenuItemText {
@@ -188,11 +197,20 @@ namespace MeetMeHereWP8.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Meet me at {0}.
+        ///   Looks up a localized string similar to Meet me at {0}. Latitude:{1}, longitude:{2}.
         /// </summary>
         public static string SmsTemplate {
             get {
                 return ResourceManager.GetString("SmsTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sent {0} today.
+        /// </summary>
+        public static string TileBackContent {
+            get {
+                return ResourceManager.GetString("TileBackContent", resourceCulture);
             }
         }
     }
