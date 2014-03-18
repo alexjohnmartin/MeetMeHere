@@ -19,6 +19,7 @@ using Microsoft.Phone.Tasks;
 using System.Windows.Media.Imaging;
 using Microsoft.Phone.UserData;
 using System.Windows.Controls.Primitives;
+using Microsoft.Phone.Scheduler;
 
 ////based on examples from...
 
@@ -154,7 +155,7 @@ namespace MeetMeHereWP8
 
                 DrawMapMarkers(coordinates);
                 BuildLocalizedApplicationBar(true);
-                StartDownloadMapImage(coordinates); 
+                StartDownloadMapImage(coordinates);
             }
             //If an error is catch 2 are the main causes: the first is that you forgot to include ID_CAP_LOCATION in your app manifest. 
             //The second is that the user doesn't turned on the Location Services
@@ -177,29 +178,6 @@ namespace MeetMeHereWP8
         {
             var downloader = new DownloadAndSaveImage();
             downloader.DownloadMapImages(coordinates.Latitude, coordinates.Longitude, HereMap.ZoomLevel, GetStyleNumber(HereMap.CartographicMode), HereMapsAppId, HereMapsAppCode); 
-        }
-
-        private void webClient_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
-        {
-            try
-            {
-                if (e.Error != null) return;
-                if (e.Cancelled == true) return;
-                
-                var image = new BitmapImage(new Uri("" + downloadUrl));
-                var wb = new WriteableBitmap(image);
-                using (IsolatedStorageFile iso = IsolatedStorageFile.GetUserStoreForApplication())
-                {
-                    using (IsolatedStorageFileStream isostream = iso.CreateFile(@"Assets\Tiles\mapview.jpg"))
-                    {
-                        Extensions.SaveJpeg(wb, isostream, wb.PixelWidth, wb.PixelHeight, 0, 85);
-                        isostream.Close();
-                    }
-                }
-            }
-            catch
-            {
-            }
         }
 
         private void DrawMapMarkers(GeoCoordinate coordinates)

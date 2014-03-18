@@ -1,4 +1,5 @@
 ﻿using Microsoft.Phone.Maps.Controls;
+using Microsoft.Phone.Scheduler;
 using Microsoft.Phone.Shell;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,11 @@ namespace MeetMeHereWP8
     {
         const int tileHeight = 336;
         const int wideTileWidth = 691;
-        const int normalTileWidth = 336; 
+        const int normalTileWidth = 336;
+
+        PeriodicTask periodicTask;
+        string periodicTaskName = "ScheduledAgent";
+        public bool agentsAreEnabled = true;
 
         private const string baseDownloadUrl = "http://image.maps.cit.api.here.com/mia/1.6/mapview?app_id={4}&app_code={5}&c={0},{1}&z={2}&w={6}&h={7}&t={3}";
         IsolatedStorageFile MyStore = IsolatedStorageFile.GetUserStoreForApplication();
@@ -80,12 +85,67 @@ namespace MeetMeHereWP8
                 if (loadedNormalImage && loadedWideImage)
                 {
                     var appSettings = IsolatedStorageSettings.ApplicationSettings; 
-                    TileHelper.SetTileData((int)appSettings["sendCount"]); 
+                    TileHelper.SetTileData((int)appSettings["sendCount"]);
+                    StartPeriodicAgent();
                     return;
                 }
 
                 Thread.Sleep(1000); 
                 iterationCount++;
+            }
+        }
+
+
+        private void StartPeriodicAgent()
+        {
+            // Variable for tracking enabled status of background agents for this app.
+            agentsAreEnabled = true;
+
+            // Obtain a reference to the period task, if one exists
+            periodicTask = ScheduledActionService.Find(periodicTaskName) as PeriodicTask;
+
+            // If the task already exists and background agents are enabled for the
+            // application, you must remove the task and then add it again to update 
+            // the schedule
+            if (periodicTask != null)
+            {
+                RemoveAgent(periodicTaskName);
+            }
+
+            periodicTask = new PeriodicTask(periodicTaskName);
+
+            // The description is required for periodic agents. This is the string that the user
+            // will see in the background services Settings page on the device.
+            periodicTask.Description = "This demonstrates a periodic task.";
+
+            // Place the call to Add in a try block in case the user has disabled agents.
+            try
+            {
+                ScheduledActionService.Add(periodicTask);
+
+                // If debugging is enabled, use LaunchForTest to launch the agent in one minute.
+#if(DEBUG)
+                ScheduledActionService.LaunchForTest(periodicTaskName, TimeSpan.FromSeconds(60));
+#endif
+            }
+            catch (InvalidOperationException exception)
+            {
+
+            }
+            catch (SchedulerServiceException)
+            {
+
+            }
+        }
+
+        private void RemoveAgent(string name)
+        {
+            try
+            {
+                ScheduledActionService.Remove(name);
+            }
+            catch (Exception)
+            {
             }
         }
     }

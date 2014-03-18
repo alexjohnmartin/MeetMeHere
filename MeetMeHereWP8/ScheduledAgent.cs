@@ -10,7 +10,7 @@ namespace MeetMeHereWP8
     {
         protected override void OnInvoke(ScheduledTask task)
         {
-            var appSettings = IsolatedStorageSettings.ApplicationSettings; 
+            var appSettings = IsolatedStorageSettings.ApplicationSettings;
             if (appSettings["sendCountDate"] == null ||
                 (string)appSettings["sendCountDate"] != DateTime.Now.Date.ToShortDateString())
             {
@@ -20,7 +20,7 @@ namespace MeetMeHereWP8
                 TileHelper.SetTileData(0);
             }
 
-#if DEBUG_AGENT
+#if DEBUG
   ScheduledActionService.LaunchForTest(task.Name, TimeSpan.FromSeconds(60));
 #endif
 
