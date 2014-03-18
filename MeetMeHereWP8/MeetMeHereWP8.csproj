@@ -109,7 +109,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="ScheduledAgent.cs" />
     <Compile Include="TileHelper.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -171,6 +170,10 @@
     <ProjectReference Include="..\RateMyApp\RateMyApp.csproj">
       <Project>{83C47431-2793-48E3-A2FB-CC6702523314}</Project>
       <Name>RateMyApp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UpdateTileScheduledTaskAgent\UpdateTileScheduledTaskAgent.csproj">
+      <Project>{4E888D0D-9AC1-4DA8-8AE2-5FBD8FC561DC}</Project>
+      <Name>UpdateTileScheduledTaskAgent</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
