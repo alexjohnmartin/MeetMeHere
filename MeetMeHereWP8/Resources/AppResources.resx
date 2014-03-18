@@ -122,7 +122,7 @@
     <comment>Controls the FlowDirection for all elements in the RootFrame. Set to the traditional direction of this resource file's language</comment>
   </data>
   <data name="ResourceLanguage" xml:space="preserve">
-    <value>en-US</value>
+    <value>en</value>
     <comment>Controls the Language and ensures that the font for all elements in the RootFrame aligns with the app's language. Set to the language code of this resource file's language.</comment>
   </data>
   <data name="ApplicationTitle" xml:space="preserve">
@@ -167,6 +167,22 @@ Map: http://image.maps.cit.api.here.com/mia/1.6/mapview?app_id={6}&amp;app_code=
   </data>
   <data name="SmsTemplate" xml:space="preserve">
     <value>Meet me at {0}. Latitude:{1}, longitude:{2}</value>
+  </data>
+  <data name="AboutButtonEmail" xml:space="preserve">
+    <value>Email</value>
+    <comment>About page - email tile</comment>
+  </data>
+  <data name="AboutButtonReview" xml:space="preserve">
+    <value>Review</value>
+    <comment>About page - review tile</comment>
+  </data>
+  <data name="AboutButtonStore" xml:space="preserve">
+    <value>Store</value>
+    <comment>About page - store tile</comment>
+  </data>
+  <data name="AboutButtonTwitter" xml:space="preserve">
+    <value>Twitter</value>
+    <comment>About page - twitter tile</comment>
   </data>
   <data name="AboutText" xml:space="preserve">
     <value>This app lets you see your location on a map and send it as an email or text message</value>
