@@ -6,6 +6,7 @@ using System.Linq;
 
 namespace MeetMeHereWP8
 {
+    public class ScheduledAgent : ScheduledTaskAgent
     internal class ScheduledAgent : ScheduledTaskAgent
     {
         protected override void OnInvoke(ScheduledTask task)
