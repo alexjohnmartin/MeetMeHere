@@ -9,7 +9,7 @@
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    SupportedOrientations="Portrait" Orientation="Portrait"
+    SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
     mc:Ignorable="d"
     shell:SystemTray.IsVisible="True">
 
@@ -32,45 +32,44 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="40,0,12,0">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="200" />
-                    <RowDefinition Height="200" />
-                    <RowDefinition Height="200" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="200" />
-                    <ColumnDefinition Width="200" />
-                </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="200" />
+                <RowDefinition Height="200" />
+                <RowDefinition Height="200" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="200" />
+            </Grid.ColumnDefinitions>
 
-                <Button Name="TwitterButton" Click="TwitterButton_Click" Background="Red" BorderThickness="0" Grid.Column="0" Grid.Row="0">
-                    <StackPanel>
-                        <Image Source="Assets/About/appbar.chat.png" MaxHeight="120" />
-                        <TextBlock Text="Twitter" />
-                    </StackPanel>
-                </Button>
+            <Button Name="TwitterButton" Click="TwitterButton_Click" Background="Red" BorderThickness="0" Grid.Column="0" Grid.Row="0">
+                <StackPanel>
+                    <Image Source="Assets/About/appbar.chat.png" MaxHeight="120" />
+                    <TextBlock Text="{Binding Path=LocalizedResources.AboutButtonTwitter, Source={StaticResource LocalizedStrings}}" />
+                </StackPanel>
+            </Button>
 
-                <Button Name="ReviewButton" Click="ReviewButton_Click" Background="OrangeRed" BorderThickness="0" Grid.Column="1" Grid.Row="0">
-                    <StackPanel>
-                        <Image Source="Assets/About/appbar.message.smiley.png" MaxHeight="120" />
-                        <TextBlock Text="Review" />
-                    </StackPanel>
-                </Button>
+            <Button Name="ReviewButton" Click="ReviewButton_Click" Background="OrangeRed" BorderThickness="0" Grid.Column="1" Grid.Row="0">
+                <StackPanel>
+                    <Image Source="Assets/About/appbar.message.smiley.png" MaxHeight="120" />
+                    <TextBlock Text="{Binding Path=LocalizedResources.AboutButtonReview, Source={StaticResource LocalizedStrings}}" />
+                </StackPanel>
+            </Button>
 
-                <Button Name="EmailButton" Click="EmailButton_Click" Background="Gold" BorderThickness="0" Grid.Column="0" Grid.Row="1">
-                    <StackPanel>
-                        <Image Source="Assets/About/feature.email.png" MaxHeight="120" />
-                        <TextBlock Text="Email"/>
-                    </StackPanel>
-                </Button>
+            <Button Name="EmailButton" Click="EmailButton_Click" Background="Gold" BorderThickness="0" Grid.Column="0" Grid.Row="1">
+                <StackPanel>
+                    <Image Source="Assets/About/feature.email.png" MaxHeight="120" />
+                    <TextBlock Text="{Binding Path=LocalizedResources.AboutButtonEmail, Source={StaticResource LocalizedStrings}}" />
+                </StackPanel>
+            </Button>
 
-                <Button Name="StoreButton" Click="StoreButton_Click" Background="Green" BorderThickness="0" Grid.Column="1" Grid.Row="1">
-                    <StackPanel>
-                        <Image Source="Assets/About/appbar.store.png" MaxHeight="120" />
-                        <TextBlock Text="Apps"/>
-                    </StackPanel>
-                </Button>
-            </Grid>
+            <Button Name="StoreButton" Click="StoreButton_Click" Background="Green" BorderThickness="0" Grid.Column="1" Grid.Row="1">
+                <StackPanel>
+                    <Image Source="Assets/About/appbar.store.png" MaxHeight="120" />
+                    <TextBlock Text="{Binding Path=LocalizedResources.AboutButtonStore, Source={StaticResource LocalizedStrings}}" />
+                </StackPanel>
+            </Button>
         </Grid>
     </Grid>
 
