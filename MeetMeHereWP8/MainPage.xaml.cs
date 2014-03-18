@@ -188,7 +188,8 @@ namespace MeetMeHereWP8
             if (coordinates != null)
             {
                 //DrawAccuracyRadius(mapLayer);
-                DrawMapMarker(coordinates, Colors.Red, mapLayer);
+                var currentAccentColorHex = (Color)Application.Current.Resources["PhoneAccentColor"];
+                DrawMapMarker(coordinates, currentAccentColorHex, mapLayer);
             }
          
             HereMap.Layers.Add(mapLayer);
