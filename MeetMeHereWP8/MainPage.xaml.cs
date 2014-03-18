@@ -20,6 +20,7 @@ using System.Windows.Media.Imaging;
 using Microsoft.Phone.UserData;
 using System.Windows.Controls.Primitives;
 using Microsoft.Phone.Scheduler;
+using System.IO;
 
 ////based on examples from...
 
@@ -61,6 +62,12 @@ using Microsoft.Phone.Scheduler;
 //http://shawnoster.com/2012/10/welcome-custommessagebox-to-the-windows-phone-toolkit/
 //custom popup
 //http://developer.nokia.com/community/wiki/How_to_use_Pop-Ups_in_Windows_Phone
+
+//getting windows theme color
+//http://msdn.microsoft.com/en-us/library/windowsphone/develop/ff769545%28v=vs.105%29.aspx
+
+//emailing an image
+//http://kodierer.blogspot.ca/2010/12/sending-windows-phone-screenshots-in.html
 
 //app bar images
 //C:\Program Files (x86)\Microsoft SDKs\Windows Phone\v8.0\Icons\Dark
@@ -336,11 +343,10 @@ namespace MeetMeHereWP8
             var mapCoordinates = HereMap.Center;
             var mapStyle = GetStyleNumber(HereMap.CartographicMode);
             var mapZoom = HereMap.ZoomLevel;
-        
-            var email = new EmailComposeTask();
-            email.Subject = AppResources.EmailSubject;
-            email.To = string.Join<Contact>(";", contacts);
-            email.Body = string.Format(AppResources.EmailBody, 
+
+            var emailSubject = AppResources.EmailSubject; 
+            var emailTo = string.Join<Contact>(";", contacts);
+            var emailBody = string.Format(AppResources.EmailBody, 
                 mapCoordinates.Latitude, 
                 mapCoordinates.Longitude, 
                 mapStyle, 
@@ -351,7 +357,9 @@ namespace MeetMeHereWP8
                 HereMapsAppCode, 
                 info.AddressLabel);
 
+            var email = new EmailComposeTask { To = emailTo, Subject = emailSubject, Body = emailBody };
             email.Show();
+            //SendEmailScreenshot(HereMap, emailTo, emailSubject); 
         }
 
         private void IncrementSendCount()
@@ -476,5 +484,40 @@ namespace MeetMeHereWP8
 
             contactsPopup.IsOpen = true;
         }
+
+        //private static void SendEmailScreenshot(FrameworkElement element, string to, string subject)
+        //{
+        //    // Render the element at the maximum possible size
+        //    ScaleTransform transform = null;
+        //    if (element.ActualWidth * element.ActualHeight > 240 * 400)
+        //    {
+        //        // Calculate a uniform scale with the minimum possible size
+        //        var scaleX = 240.0 / element.ActualWidth;
+        //        var scaleY = 400.0 / element.ActualHeight;
+        //        var scale = scaleX < scaleY ? scaleX : scaleY;
+        //        transform = new ScaleTransform { ScaleX = scale, ScaleY = scale };
+        //    }
+        //    var wb = new WriteableBitmap(element, transform);
+
+        //    using (var memoryStream = new MemoryStream())
+        //    {
+        //        // Encode the screenshot as JPEG with a quality of 60%
+        //        wb.SaveJpeg(memoryStream, wb.PixelWidth, wb.PixelHeight, 0, 60);
+        //        memoryStream.Seek(0, SeekOrigin.Begin);
+
+        //        // Convert binary data to Base64 string
+        //        var bytes = memoryStream.ToArray();
+        //        var base64String = Convert.ToBase64String(bytes);
+
+        //        // Invoke email task
+        //        var emailComposeTask = new EmailComposeTask
+        //        {
+        //            Subject = subject,
+        //            Body = base64String,
+        //            To = "alex.john.martin@gmail.com", //to,
+        //        };
+        //        emailComposeTask.Show();
+        //    }
+        //}
     }
 }
