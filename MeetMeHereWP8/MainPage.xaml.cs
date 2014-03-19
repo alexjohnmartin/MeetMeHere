@@ -86,12 +86,9 @@ namespace MeetMeHereWP8
         bool loading = true;
         Geolocator geolocator = null;
         GeoCoordinate coordinates = null;
-        bool TileScheduleRunning = false; 
-        string downloadUrl = string.Empty; 
-        ApplicationBarIconButton smsButton;
-        ApplicationBarIconButton emailButton;
-        IsolatedStorageSettings appSettings;
+        string downloadUrl = string.Empty;
         Popup contactsPopup = new Popup(); 
+        IsolatedStorageSettings appSettings;
 
         public MainPage()
         {
