@@ -24,27 +24,34 @@ namespace MeetMeHere.Support
 
         private void LoadXmlCallback(object sender, DownloadStringCompletedEventArgs e)
         {
-            var textData = (string)e.Result;
-            string addressLabel = string.Empty; 
-
-            if (textData.Contains("<Address>"))
+            string addressLabel = string.Empty;
+            try
             {
-                var startIndex = textData.IndexOf("<Address>") + 9; 
-                var endIndex = textData.IndexOf("</Address>"); 
-                var addressText = textData.Substring(
-                        startIndex, 
-                        endIndex - startIndex
-                    ).Trim(); 
+                var textData = (string)e.Result;
 
-                startIndex = addressText.IndexOf("<Label>") + 7; 
-                endIndex = addressText.IndexOf("</Label>"); 
-                addressLabel = addressText.Substring(
-                        startIndex, 
-                        endIndex - startIndex
-                    ).Trim(); 
+                if (textData.Contains("<Address>"))
+                {
+                    var startIndex = textData.IndexOf("<Address>") + 9;
+                    var endIndex = textData.IndexOf("</Address>");
+                    var addressText = textData.Substring(
+                            startIndex,
+                            endIndex - startIndex
+                        ).Trim();
+
+                    startIndex = addressText.IndexOf("<Label>") + 7;
+                    endIndex = addressText.IndexOf("</Label>");
+                    addressLabel = addressText.Substring(
+                            startIndex,
+                            endIndex - startIndex
+                        ).Trim();
+                }
             }
-
-            _action.Invoke(new GeocodingInfo { AddressLabel = addressLabel }); 
+            catch(Exception ex)
+            {
+                addressLabel = ex.Message;
+            }
+             
+            _action.Invoke(new GeocodingInfo { AddressLabel = addressLabel });            
         }
     }
 }
