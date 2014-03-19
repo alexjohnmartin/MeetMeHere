@@ -160,6 +160,7 @@ namespace MeetMeHereWP8
                 DrawMapMarkers(coordinates);
                 BuildLocalizedApplicationBar(true);
                 StartDownloadMapImage(coordinates);
+                UpdateTitleWithLocationText(coordinates); 
             }
             //If an error is catch 2 are the main causes: the first is that you forgot to include ID_CAP_LOCATION in your app manifest. 
             //The second is that the user doesn't turned on the Location Services
@@ -176,6 +177,12 @@ namespace MeetMeHereWP8
                     // something else happened during the acquisition of the location
                 //}
             }
+        }
+
+        private void UpdateTitleWithLocationText(GeoCoordinate coordinates)
+        {
+            var geolocator = new GeocodingHelper();
+            geolocator.GetGeocodingInfo(coordinates.Latitude, coordinates.Longitude, (info) => TitleText.Text = info.AddressLabel); 
         }
 
         private void StartDownloadMapImage(GeoCoordinate coordinates)
