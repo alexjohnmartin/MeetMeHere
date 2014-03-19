@@ -6,7 +6,6 @@ using System.Windows.Markup;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
-using MeetMeHereWP8.Resources;
 
 namespace MeetMeHereWP8
 {
@@ -171,11 +170,11 @@ namespace MeetMeHereWP8
         // and ResourceFlowDirection should be initialized in each resx file to match these values with that
         // file's culture. For example:
         //
-        // AppResources.es-ES.resx
+        // MeetMeHere.Support.MeetMeHereResources.es-ES.resx
         //    ResourceLanguage's value should be "es-ES"
         //    ResourceFlowDirection's value should be "LeftToRight"
         //
-        // AppResources.ar-SA.resx
+        // MeetMeHere.Support.MeetMeHereResources.ar-SA.resx
         //     ResourceLanguage's value should be "ar-SA"
         //     ResourceFlowDirection's value should be "RightToLeft"
         //
@@ -193,7 +192,7 @@ namespace MeetMeHereWP8
                 //
                 // If a compiler error is hit then ResourceLanguage is missing from
                 // the resource file.
-                RootFrame.Language = XmlLanguage.GetLanguage(AppResources.ResourceLanguage);
+                RootFrame.Language = XmlLanguage.GetLanguage(MeetMeHere.Support.MeetMeHereResources.ResourceLanguage);
 
                 // Set the FlowDirection of all elements under the root frame based
                 // on the ResourceFlowDirection resource string for each
@@ -201,7 +200,7 @@ namespace MeetMeHereWP8
                 //
                 // If a compiler error is hit then ResourceFlowDirection is missing from
                 // the resource file.
-                FlowDirection flow = (FlowDirection)Enum.Parse(typeof(FlowDirection), AppResources.ResourceFlowDirection);
+                FlowDirection flow = (FlowDirection)Enum.Parse(typeof(FlowDirection), MeetMeHere.Support.MeetMeHereResources.ResourceFlowDirection);
                 RootFrame.FlowDirection = flow;
             }
             catch

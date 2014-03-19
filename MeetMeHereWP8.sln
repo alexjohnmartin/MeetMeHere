@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RateMyApp", "RateMyApp\Rate
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpdateTileScheduledTaskAgent", "UpdateTileScheduledTaskAgent\UpdateTileScheduledTaskAgent.csproj", "{4E888D0D-9AC1-4DA8-8AE2-5FBD8FC561DC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeetMeHere.Support", "MeetMeHere.Support\MeetMeHere.Support.csproj", "{D3ADD292-1BFC-4630-9CA9-AABD28E77F0F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,18 @@ Global
 		{4E888D0D-9AC1-4DA8-8AE2-5FBD8FC561DC}.Release|ARM.Build.0 = Release|ARM
 		{4E888D0D-9AC1-4DA8-8AE2-5FBD8FC561DC}.Release|x86.ActiveCfg = Release|x86
 		{4E888D0D-9AC1-4DA8-8AE2-5FBD8FC561DC}.Release|x86.Build.0 = Release|x86
+		{D3ADD292-1BFC-4630-9CA9-AABD28E77F0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3ADD292-1BFC-4630-9CA9-AABD28E77F0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3ADD292-1BFC-4630-9CA9-AABD28E77F0F}.Debug|ARM.ActiveCfg = Debug|ARM
+		{D3ADD292-1BFC-4630-9CA9-AABD28E77F0F}.Debug|ARM.Build.0 = Debug|ARM
+		{D3ADD292-1BFC-4630-9CA9-AABD28E77F0F}.Debug|x86.ActiveCfg = Debug|x86
+		{D3ADD292-1BFC-4630-9CA9-AABD28E77F0F}.Debug|x86.Build.0 = Debug|x86
+		{D3ADD292-1BFC-4630-9CA9-AABD28E77F0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3ADD292-1BFC-4630-9CA9-AABD28E77F0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3ADD292-1BFC-4630-9CA9-AABD28E77F0F}.Release|ARM.ActiveCfg = Release|ARM
+		{D3ADD292-1BFC-4630-9CA9-AABD28E77F0F}.Release|ARM.Build.0 = Release|ARM
+		{D3ADD292-1BFC-4630-9CA9-AABD28E77F0F}.Release|x86.ActiveCfg = Release|x86
+		{D3ADD292-1BFC-4630-9CA9-AABD28E77F0F}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

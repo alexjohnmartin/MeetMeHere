@@ -2,24 +2,7 @@
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2012/deployment" AppPlatformVersion="8.0">
   <DefaultLanguage xmlns="" code="en-US" />
   <Languages xmlns="">
-    <Language code="en" />
-    <Language code="en-AU" />
-    <Language code="en-BZ" />
-    <Language code="en-CA" />
-    <Language code="en-029" />
-    <Language code="en-HK" />
-    <Language code="en-IN" />
-    <Language code="en-IE" />
-    <Language code="en-JM" />
-    <Language code="en-MY" />
-    <Language code="en-NZ" />
-    <Language code="en-PH" />
-    <Language code="en-SG" />
-    <Language code="en-ZA" />
-    <Language code="en-TT" />
-    <Language code="en-GB" />
     <Language code="en-US" />
-    <Language code="en-ZW" />
   </Languages>
   <App xmlns="" ProductID="{87b248d3-db1b-4f98-8ba1-267f98049df4}" Title="Meet Me Here" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="Alex Martin" Description="Send and email with your location." Publisher="Nocturnal Tendencies" PublisherID="{00e53af5-1a84-417a-911c-4fa0c2063d78}">
     <IconPath IsRelative="true" IsResource="false">Assets\ApplicationIcon.png</IconPath>

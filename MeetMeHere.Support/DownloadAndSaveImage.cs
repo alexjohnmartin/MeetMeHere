@@ -13,9 +13,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Resources;
 
-namespace MeetMeHereWP8
+namespace MeetMeHere.Support
 {
-    internal class DownloadAndSaveImage
+    public class DownloadAndSaveImage
     {
         const int tileHeight = 336;
         const int wideTileWidth = 691;
@@ -32,7 +32,7 @@ namespace MeetMeHereWP8
         private int iterationCount = 0;
         private const int MaxIterations = 100; 
 
-        internal void DownloadMapImages(double latitude, double longitude, double zoom, int cartographicMode, string hereMapsAppId, string hereMapsAppCode)
+        public void DownloadMapImages(double latitude, double longitude, double zoom, int cartographicMode, string hereMapsAppId, string hereMapsAppCode)
         {
             var downloadUrl = string.Format(baseDownloadUrl, latitude, longitude, zoom, cartographicMode, hereMapsAppId, hereMapsAppCode, wideTileWidth, tileHeight);
             WebClient client = new WebClient();

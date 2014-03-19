@@ -7,7 +7,6 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
-using MeetMeHereWP8.Resources;
 using System.Threading.Tasks;
 using Windows.Devices.Geolocation;
 using System.IO.IsolatedStorage;
@@ -21,6 +20,7 @@ using Microsoft.Phone.UserData;
 using System.Windows.Controls.Primitives;
 using Microsoft.Phone.Scheduler;
 using System.IO;
+using MeetMeHere.Support;
 
 ////based on examples from...
 
@@ -137,7 +137,7 @@ namespace MeetMeHereWP8
                 // The user has opted out of Location.
                 LoadingBlock.Visibility = System.Windows.Visibility.Collapsed; 
                 ErrorBlock.Visibility = System.Windows.Visibility.Visible;
-                ErrorText.Text = AppResources.ErrorLocationDisabled; 
+                ErrorText.Text = MeetMeHere.Support.MeetMeHereResources.ErrorLocationDisabled; 
                 return;
             }
 
@@ -166,13 +166,13 @@ namespace MeetMeHereWP8
             }
             //If an error is catch 2 are the main causes: the first is that you forgot to include ID_CAP_LOCATION in your app manifest. 
             //The second is that the user doesn't turned on the Location Services
-            catch (Exception ex)
+            catch // (Exception ex)
             {
                 //if ((uint)ex.HResult == 0x80004004)
                 //{
                     LoadingBlock.Visibility = System.Windows.Visibility.Collapsed;
                     ErrorBlock.Visibility = System.Windows.Visibility.Visible;
-                    ErrorText.Text = AppResources.ErrorLocationDisabledInPhoneSettings; 
+                    ErrorText.Text = MeetMeHere.Support.MeetMeHereResources.ErrorLocationDisabledInPhoneSettings; 
                 //}
                 //else
                 //{
@@ -256,25 +256,25 @@ namespace MeetMeHereWP8
 
             if (locationFound)
             {
-                // Create a new button and set the text value to the localized string from AppResources.
+                // Create a new button and set the text value to the localized string from MeetMeHere.Support.MeetMeHereResources.
                 var relocateButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.refresh.png", UriKind.Relative));
-                relocateButton.Text = AppResources.AppBarRefreshButtonText;
+                relocateButton.Text = MeetMeHere.Support.MeetMeHereResources.AppBarRefreshButtonText;
                 relocateButton.Click += GetLocation_Click;
                 ApplicationBar.Buttons.Add(relocateButton);
 
                 var emailButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.email.png", UriKind.Relative));
-                emailButton.Text = AppResources.AppBarEmailButtonText;
+                emailButton.Text = MeetMeHere.Support.MeetMeHereResources.AppBarEmailButtonText;
                 emailButton.Click += SendEmail_Click;
                 ApplicationBar.Buttons.Add(emailButton);
 
                 var smsButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.phone.png", UriKind.Relative));
-                smsButton.Text = AppResources.AppBarSmsButtonText;
+                smsButton.Text = MeetMeHere.Support.MeetMeHereResources.AppBarSmsButtonText;
                 smsButton.Click += SendSms_Click; 
                 ApplicationBar.Buttons.Add(smsButton);
             }
 
-            // Create a new menu item with the localized string from AppResources.
-            var aboutMenuItem = new ApplicationBarMenuItem(AppResources.AppBarAboutMenuItemText);
+            // Create a new menu item with the localized string from MeetMeHere.Support.MeetMeHereResources.
+            var aboutMenuItem = new ApplicationBarMenuItem(MeetMeHere.Support.MeetMeHereResources.AppBarAboutMenuItemText);
             aboutMenuItem.Click += aboutMenuItem_Click;
             ApplicationBar.MenuItems.Add(aboutMenuItem);
 
@@ -332,7 +332,7 @@ namespace MeetMeHereWP8
 
             SmsComposeTask smsComposeTask = new SmsComposeTask();
             smsComposeTask.To = string.Join<Contact>(";", contacts);
-            smsComposeTask.Body = string.Format(AppResources.SmsTemplate, info.AddressLabel, coordinates.Latitude, coordinates.Longitude);
+            smsComposeTask.Body = string.Format(MeetMeHere.Support.MeetMeHereResources.SmsTemplate, info.AddressLabel, coordinates.Latitude, coordinates.Longitude);
             smsComposeTask.Show();
         }
 
@@ -344,9 +344,9 @@ namespace MeetMeHereWP8
             var mapStyle = GetStyleNumber(HereMap.CartographicMode);
             var mapZoom = HereMap.ZoomLevel;
 
-            var emailSubject = AppResources.EmailSubject; 
+            var emailSubject = MeetMeHere.Support.MeetMeHereResources.EmailSubject; 
             var emailTo = string.Join<Contact>(";", contacts);
-            var emailBody = string.Format(AppResources.EmailBody, 
+            var emailBody = string.Format(MeetMeHere.Support.MeetMeHereResources.EmailBody, 
                 mapCoordinates.Latitude, 
                 mapCoordinates.Longitude, 
                 mapStyle, 
@@ -392,7 +392,7 @@ namespace MeetMeHereWP8
         private void PromptIfWeCanUseUsersLocation()
         {
             //If they didn't we ask for it
-            MessageBoxResult result = MessageBox.Show(AppResources.LocationPrivacyPolicyBody, AppResources.LocationPrivacyPolicyTitle, MessageBoxButton.OKCancel);
+            MessageBoxResult result = MessageBox.Show(MeetMeHere.Support.MeetMeHereResources.LocationPrivacyPolicyBody, MeetMeHere.Support.MeetMeHereResources.LocationPrivacyPolicyTitle, MessageBoxButton.OKCancel);
             if (result == MessageBoxResult.OK)
             {
                 IsolatedStorageSettings.ApplicationSettings["LocationConsent"] = true;

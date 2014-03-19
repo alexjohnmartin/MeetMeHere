@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MeetMeHereWP8.Resources {
+namespace MeetMeHere.Support {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace MeetMeHereWP8.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class AppResources {
+    public class MeetMeHereResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal AppResources() {
+        public MeetMeHereResources() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace MeetMeHereWP8.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MeetMeHereWP8.Resources.AppResources", typeof(AppResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MeetMeHere.Support.MeetMeHereResources", typeof(MeetMeHereResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -99,9 +99,9 @@ namespace MeetMeHereWP8.Resources {
         /// <summary>
         ///   Looks up a localized string similar to This app lets you see your location on a map and send it as an email or text message.
         /// </summary>
-        public static string AboutText {
+        public static string AboutDescription {
             get {
-                return ResourceManager.GetString("AboutText", resourceCulture);
+                return ResourceManager.GetString("AboutDescription", resourceCulture);
             }
         }
         
@@ -142,11 +142,11 @@ namespace MeetMeHereWP8.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Meet me here.
+        ///   Looks up a localized string similar to Meet Me Here.
         /// </summary>
-        public static string ApplicationTitle {
+        public static string ApplicationName {
             get {
-                return ResourceManager.GetString("ApplicationTitle", resourceCulture);
+                return ResourceManager.GetString("ApplicationName", resourceCulture);
             }
         }
         
@@ -244,9 +244,9 @@ namespace MeetMeHereWP8.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Sent {0} today.
         /// </summary>
-        public static string TileBackContent {
+        public static string TileSentCount {
             get {
-                return ResourceManager.GetString("TileBackContent", resourceCulture);
+                return ResourceManager.GetString("TileSentCount", resourceCulture);
             }
         }
     }

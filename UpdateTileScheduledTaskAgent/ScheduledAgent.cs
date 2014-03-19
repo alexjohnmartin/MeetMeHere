@@ -5,6 +5,7 @@ using System.IO.IsolatedStorage;
 using System;
 using System.Linq;
 using Microsoft.Phone.Shell;
+using MeetMeHere.Support;
 
 namespace UpdateTileScheduledTaskAgent
 {
@@ -50,31 +51,10 @@ namespace UpdateTileScheduledTaskAgent
                 appSettings["sendCountDate"] = DateTime.Now.Date.ToShortDateString();
                 appSettings["sendCount"] = 0;
 
-                SetTileData(0);
+                TileHelper.SetTileData(0);
             }
 
             NotifyComplete();
-        }
-
-        private static void SetTileData(int sendCount)
-        {
-            var tileId = ShellTile.ActiveTiles.FirstOrDefault();
-            if (tileId != null)
-            {
-                //TODO:use AppResources for translatable text
-                var tileData = new FlipTileData
-                {
-                    Title = "Meet Me Here",
-                    BackContent = string.Format("Sent {0} today", sendCount),
-                    BackgroundImage = new Uri(@"Assets\Tiles\FlipCycleTileMedium.png", UriKind.Relative),
-                    WideBackContent = string.Format("Sent {0} today", sendCount),
-                    WideBackgroundImage = new Uri(@"Assets\Tiles\FlipCycleTileLarge.png", UriKind.Relative),
-                    BackBackgroundImage = new Uri(@"isostore:/Shared/ShellContent/mapview.jpg"),
-                    WideBackBackgroundImage = new Uri(@"isostore:/Shared/ShellContent/mapview-wide.jpg"),
-                };
-
-                tileId.Update(tileData);
-            }
         }
     }
 }

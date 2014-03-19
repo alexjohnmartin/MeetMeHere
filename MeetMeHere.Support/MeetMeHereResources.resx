@@ -117,57 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ResourceFlowDirection" xml:space="preserve">
-    <value>LeftToRight</value>
-    <comment>Controls the FlowDirection for all elements in the RootFrame. Set to the traditional direction of this resource file's language</comment>
-  </data>
-  <data name="ResourceLanguage" xml:space="preserve">
-    <value>en</value>
-    <comment>Controls the Language and ensures that the font for all elements in the RootFrame aligns with the app's language. Set to the language code of this resource file's language.</comment>
-  </data>
-  <data name="ApplicationTitle" xml:space="preserve">
-    <value>Meet me here</value>
-  </data>
-  <data name="AppBarRefreshButtonText" xml:space="preserve">
-    <value>refresh</value>
-  </data>
-  <data name="AppBarAboutMenuItemText" xml:space="preserve">
-    <value>about</value>
-  </data>
-  <data name="AppBarEmailButtonText" xml:space="preserve">
-    <value>send email</value>
-  </data>
-  <data name="AppBarSmsButtonText" xml:space="preserve">
-    <value>send text</value>
-  </data>
-  <data name="EmailBody" xml:space="preserve">
-    <value>I'm waiting for at {8}
-Map: http://image.maps.cit.api.here.com/mia/1.6/mapview?app_id={6}&amp;app_code={7}&amp;c={0},{1}&amp;z={3}&amp;w={4}&amp;h={5}&amp;t={2}</value>
-  </data>
-  <data name="EmailSubject" xml:space="preserve">
-    <value>Meet me here</value>
-  </data>
-  <data name="LoadingLocation" xml:space="preserve">
-    <value>Getting your location...</value>
-  </data>
-  <data name="ErrorLocationDisabled" xml:space="preserve">
-    <value>Location is disabled</value>
-    <comment>Error shown if user doesn't allow location to be used</comment>
-  </data>
-  <data name="ErrorLocationDisabledInPhoneSettings" xml:space="preserve">
-    <value>Location is disabled in phone settings</value>
-  </data>
-  <data name="LocationPrivacyPolicyBody" xml:space="preserve">
-    <value>Can this application use your location?</value>
-    <comment>Body of message box prompting whether app can use user's location</comment>
-  </data>
-  <data name="LocationPrivacyPolicyTitle" xml:space="preserve">
-    <value>Location</value>
-    <comment>Title of message box prompting whether app can use user's location</comment>
-  </data>
-  <data name="SmsTemplate" xml:space="preserve">
-    <value>Meet me at {0}. Latitude:{1}, longitude:{2}</value>
-  </data>
   <data name="AboutButtonEmail" xml:space="preserve">
     <value>Email</value>
     <comment>About page - email tile</comment>
@@ -184,12 +133,73 @@ Map: http://image.maps.cit.api.here.com/mia/1.6/mapview?app_id={6}&amp;app_code=
     <value>Twitter</value>
     <comment>About page - twitter tile</comment>
   </data>
-  <data name="AboutText" xml:space="preserve">
+  <data name="AboutDescription" xml:space="preserve">
     <value>This app lets you see your location on a map and send it as an email or text message</value>
-    <comment>Application description shown on the About page</comment>
+    <comment>About page - application description</comment>
   </data>
-  <data name="TileBackContent" xml:space="preserve">
-    <value>Sent {0} today</value>
+  <data name="AppBarAboutMenuItemText" xml:space="preserve">
+    <value>about</value>
+    <comment>App bar - about button</comment>
+  </data>
+  <data name="AppBarEmailButtonText" xml:space="preserve">
+    <value>send email</value>
+    <comment>App bar - send email button</comment>
+  </data>
+  <data name="AppBarRefreshButtonText" xml:space="preserve">
+    <value>refresh</value>
+    <comment>App bar - refresh current location button</comment>
+  </data>
+  <data name="AppBarSmsButtonText" xml:space="preserve">
+    <value>send text</value>
+    <comment>App bar - send text message button</comment>
+  </data>
+  <data name="ApplicationName" xml:space="preserve">
+    <value>Meet Me Here</value>
+    <comment>Application name, displayed at the top of the screen</comment>
+  </data>
+  <data name="EmailBody" xml:space="preserve">
+    <value>I'm waiting for at {8}
+Map: http://image.maps.cit.api.here.com/mia/1.6/mapview?app_id={6}&amp;app_code={7}&amp;c={0},{1}&amp;z={3}&amp;w={4}&amp;h={5}&amp;t={2}</value>
+    <comment>Body of the email sent with current location</comment>
+  </data>
+  <data name="EmailSubject" xml:space="preserve">
+    <value>Meet me here</value>
+    <comment>Subject of the email sent with current location</comment>
+  </data>
+  <data name="ErrorLocationDisabled" xml:space="preserve">
+    <value>Location is disabled</value>
+    <comment>Error shown if user doesn't allow location to be used</comment>
+  </data>
+  <data name="ErrorLocationDisabledInPhoneSettings" xml:space="preserve">
+    <value>Location is disabled in phone settings</value>
+    <comment>Error shown if user location is disabled in phone settings</comment>
+  </data>
+  <data name="LoadingLocation" xml:space="preserve">
+    <value>Getting your location...</value>
+    <comment>Overlay text shown while waiting to get user's location</comment>
+  </data>
+  <data name="LocationPrivacyPolicyBody" xml:space="preserve">
+    <value>Can this application use your location?</value>
+    <comment>Body of message box prompting whether app can use user's location</comment>
+  </data>
+  <data name="LocationPrivacyPolicyTitle" xml:space="preserve">
+    <value>Location</value>
+    <comment>Title of message box prompting whether app can use user's location</comment>
+  </data>
+  <data name="ResourceFlowDirection" xml:space="preserve">
+    <value>LeftToRight</value>
+    <comment>Controls the FlowDirection for all elements in the RootFrame. Set to the traditional direction of this resource file's language</comment>
+  </data>
+  <data name="ResourceLanguage" xml:space="preserve">
+    <value>en</value>
+    <comment>Controls the Language and ensures that the font for all elements in the RootFrame aligns with the app's language. Set to the language code of this resource file's language.</comment>
+  </data>
+  <data name="SmsTemplate" xml:space="preserve">
+    <value>Meet me at {0}. Latitude:{1}, longitude:{2}</value>
     <comment>Additional text shown on the live tiles, shows a count of messages sent today</comment>
+  </data>
+  <data name="TileSentCount" xml:space="preserve">
+    <value>Sent {0} today</value>
+    <comment>Live tile text - displays the amount of times this app has sent your location today</comment>
   </data>
 </root>

@@ -1,14 +1,12 @@
-﻿using MeetMeHereWP8.Resources;
-
-namespace MeetMeHereWP8
+﻿namespace MeetMeHereWP8
 {
     /// <summary>
     /// Provides access to string resources.
     /// </summary>
     public class LocalizedStrings
     {
-        private static AppResources _localizedResources = new AppResources();
+        private static MeetMeHere.Support.MeetMeHereResources _localizedResources = new MeetMeHere.Support.MeetMeHereResources();
 
-        public AppResources LocalizedResources { get { return _localizedResources; } }
+        public MeetMeHere.Support.MeetMeHereResources LocalizedResources { get { return _localizedResources; } }
     }
 }

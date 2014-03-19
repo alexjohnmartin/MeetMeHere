@@ -82,7 +82,7 @@
 
 <!-- LOCALIZATION NOTE:
             To localize the displayed strings copy their values to appropriately named
-            keys in the app's neutral language resource file (AppResources.resx) then
+            keys in the app's neutral language resource file (MeetMeHere.Support.MeetMeHereResources.resx) then
             replace the hard-coded text value between the attributes' quotation marks
             with the binding clause whose path points to that string name.
 
