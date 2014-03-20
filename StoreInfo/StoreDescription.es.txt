@@ -1,0 +1,10 @@
+¿Reunión con alguien? ¿Quieres enviar un mapa para encontrarte?
+
+Esta aplicación te permite enviar por correo electrónico un mapa con su posición actual. 
+
+
+Política de privacidad
+=====================
+Esta aplicación buscará su ubicación a menos de 10 metros.
+No almacena su ubicación.
+No lo comparta con nadie más que quien explícitamente decide enviarlo.

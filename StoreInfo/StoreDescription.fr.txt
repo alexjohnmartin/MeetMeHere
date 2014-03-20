@@ -1,0 +1,10 @@
+Rencontre avec quelqu'un? Vous voulez leur envoyer une carte pour vous trouver?
+
+Cette application vous permet courriel une carte avec votre position actuelle.
+
+
+Politique de confidentialité
+================================
+Cette application va rechercher votre emplacement à moins de 10 mètres.
+Il ne rangez pas votre emplacement.
+Il ne partage pas avec n'importe qui d'autre que ce que vous choisissez explicitement à envoyer.
