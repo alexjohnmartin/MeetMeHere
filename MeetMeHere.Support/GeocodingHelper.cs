@@ -48,7 +48,7 @@ namespace MeetMeHere.Support
             }
             catch(Exception ex)
             {
-                addressLabel = ex.Message;
+                addressLabel = "????";
             }
              
             _action.Invoke(new GeocodingInfo { AddressLabel = addressLabel });            

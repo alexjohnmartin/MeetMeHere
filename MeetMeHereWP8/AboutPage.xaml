@@ -57,7 +57,7 @@
                 </StackPanel>
             </Button>
 
-            <Button Name="EmailButton" Click="EmailButton_Click" Background="Gold" BorderThickness="0" Grid.Column="0" Grid.Row="1">
+            <Button Name="EmailButton" Click="EmailButton_Click" Background="Goldenrod" BorderThickness="0" Grid.Column="0" Grid.Row="1">
                 <StackPanel>
                     <Image Source="Assets/About/feature.email.png" MaxHeight="120" />
                     <TextBlock Text="{Binding Path=LocalizedResources.AboutButtonEmail, Source={StaticResource LocalizedStrings}}" />

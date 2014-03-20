@@ -16,10 +16,10 @@ namespace MeetMeHere.Support
             {
                 var tileData = new FlipTileData
                 {
-                    Title = MeetMeHere.Support.MeetMeHereResources.ApplicationName,
-                    BackContent = string.Format(MeetMeHere.Support.MeetMeHereResources.TileSentCount, sendCount),
+                    Title = MeetMeHere.Support.Resources.AppResources.ApplicationName,
+                    BackContent = string.Format(MeetMeHere.Support.Resources.AppResources.TileSentCount, sendCount),
                     BackgroundImage = new Uri(@"Assets\Tiles\FlipCycleTileMedium.png", UriKind.Relative),
-                    WideBackContent = string.Format(MeetMeHere.Support.MeetMeHereResources.TileSentCount, sendCount),
+                    WideBackContent = string.Format(MeetMeHere.Support.Resources.AppResources.TileSentCount, sendCount),
                     WideBackgroundImage = new Uri(@"Assets\Tiles\FlipCycleTileLarge.png", UriKind.Relative),
                     BackBackgroundImage = new Uri(@"isostore:/Shared/ShellContent/mapview.jpg"),
                     WideBackBackgroundImage = new Uri(@"isostore:/Shared/ShellContent/mapview-wide.jpg"),
