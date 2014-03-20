@@ -151,8 +151,8 @@ namespace MeetMeHere.Support.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to I&apos;m at {8}.
-        ///Map: http://image.maps.cit.api.here.com/mia/1.6/mapview?app_id={6}&amp;app_code={7}&amp;c={0},{1}&amp;z={3}&amp;w={4}&amp;h={5}&amp;t={2}.
+        ///   Looks up a localized string similar to I&apos;m at {0}.
+        ///Map: {1}.
         /// </summary>
         public static string EmailBody {
             get {
@@ -233,7 +233,7 @@ namespace MeetMeHere.Support.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Meet me at {0}. Latitude:{1}, longitude:{2}.
+        ///   Looks up a localized string similar to Meet me at {0}. Map: {1}.
         /// </summary>
         public static string SmsTemplate {
             get {

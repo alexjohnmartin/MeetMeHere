@@ -69,6 +69,9 @@ using MeetMeHere.Support;
 //emailing an image
 //http://kodierer.blogspot.ca/2010/12/sending-windows-phone-screenshots-in.html
 
+//google URL shortener
+//https://developers.google.com/url-shortener/v1/getting_started#APIKey
+
 //app bar images
 //C:\Program Files (x86)\Microsoft SDKs\Windows Phone\v8.0\Icons\Dark
 
@@ -82,54 +85,60 @@ namespace MeetMeHereWP8
         const int mapHeight = 600; //rendered map height
         const string HereMapsAppId = "PC3CUQZkDFZ46i8ifPIL";
         const string HereMapsAppCode = "u_JokeYoH5JkfpvqL2CuFA";
+        const string HereMapsBaseUrl = "http://image.maps.cit.api.here.com/mia/1.6/mapview?app_id={6}&app_code={7}&c={0},{1}&z={3}&w={4}&h={5}&t={2}";
 
-        bool loading = true;
-        Geolocator geolocator = null;
-        GeoCoordinate coordinates = null;
-        string downloadUrl = string.Empty;
-        Popup contactsPopup = new Popup(); 
-        IsolatedStorageSettings appSettings;
+        bool _loading = true;
+        Geolocator _geolocator = null;
+        GeoCoordinate _coordinates = null;
+        string _longUrl = string.Empty;
+        string _shortUrl = string.Empty; 
+        string _downloadUrl = string.Empty;
+        Popup _contactsPopup = new Popup(); 
+        IsolatedStorageSettings _appSettings;
 
         public MainPage()
         {
             InitializeComponent();
-            appSettings = IsolatedStorageSettings.ApplicationSettings;
+            _appSettings = IsolatedStorageSettings.ApplicationSettings;
 
-            geolocator = new Geolocator();
-            geolocator.DesiredAccuracyInMeters = 10;
+            _geolocator = new Geolocator();
+            _geolocator.DesiredAccuracyInMeters = 10;
 
             this.Loaded += MainPage_Loaded;
             ApplicationBar = new ApplicationBar();
 
             try
             {
-                if (appSettings["sendCountDate"] == null ||
-                    (string)appSettings["sendCountDate"] != DateTime.Now.Date.ToShortDateString())
+                if (_appSettings["sendCountDate"] == null ||
+                    (string)_appSettings["sendCountDate"] != DateTime.Now.Date.ToShortDateString())
                 {
-                    appSettings["sendCountDate"] = DateTime.Now.Date.ToShortDateString();
-                    appSettings["sendCount"] = 0;
+                    _appSettings["sendCountDate"] = DateTime.Now.Date.ToShortDateString();
+                    _appSettings["sendCount"] = 0;
                 }
             }
             catch
             {
-                appSettings["sendCountDate"] = DateTime.Now.Date.ToShortDateString();
-                appSettings["sendCount"] = 0;
+                _appSettings["sendCountDate"] = DateTime.Now.Date.ToShortDateString();
+                _appSettings["sendCount"] = 0;
             }
         }
 
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
-            if (loading)
+            if (_loading)
             {
-                loading = false;
+                _loading = false;
                 GetLocation_Click(sender, e);
             }
         }
 
         private async void GetLocation_Click(object sender, EventArgs e)
         {
+            _longUrl = string.Empty;
+            _shortUrl = string.Empty; 
+
             //Check for the user agreement in use his position. If not, method returns.
-            if ((bool)appSettings["LocationConsent"] != true)
+            if ((bool)_appSettings["LocationConsent"] != true)
             {
                 // The user has opted out of Location.
                 LoadingBlock.Visibility = System.Windows.Visibility.Collapsed; 
@@ -152,15 +161,16 @@ namespace MeetMeHereWP8
                      timeout: TimeSpan.FromSeconds(10)
                     );
 
-                coordinates = new GeoCoordinate(geoposition.Coordinate.Latitude, geoposition.Coordinate.Longitude);
-                HereMap.Center = coordinates;
+                _coordinates = new GeoCoordinate(geoposition.Coordinate.Latitude, geoposition.Coordinate.Longitude);
+                HereMap.Center = _coordinates;
                 HereMap.ZoomLevel = 18;
                 LoadingBlock.Visibility = System.Windows.Visibility.Collapsed; 
 
-                DrawMapMarkers(coordinates);
+                DrawMapMarkers(_coordinates);
                 BuildLocalizedApplicationBar(true);
-                StartDownloadMapImage(coordinates);
-                UpdateTitleWithLocationText(coordinates); 
+                StartDownloadMapImage(_coordinates);
+                UpdateTitleWithLocationText(_coordinates);
+                StartDownloadShortMapUrl(_coordinates); 
             }
             //If an error is catch 2 are the main causes: the first is that you forgot to include ID_CAP_LOCATION in your app manifest. 
             //The second is that the user doesn't turned on the Location Services
@@ -177,6 +187,24 @@ namespace MeetMeHereWP8
                     // something else happened during the acquisition of the location
                 //}
             }
+        }
+
+        private void StartDownloadShortMapUrl(GeoCoordinate coordinates)
+        {
+            var mapStyle = GetStyleNumber(HereMap.CartographicMode);
+            var mapZoom = HereMap.ZoomLevel;
+
+            var shortUrlProvider = new GoogleShortUrlProvider();
+            _longUrl = string.Format(HereMapsBaseUrl, 
+                coordinates.Latitude, 
+                coordinates.Longitude, 
+                mapStyle,
+                mapZoom,
+                mapWidth,
+                mapHeight,
+                HereMapsAppId,
+                HereMapsAppCode); 
+            shortUrlProvider.GenerateShortUrl(_longUrl, (shortUrl) => _shortUrl = shortUrl); 
         }
 
         private void UpdateTitleWithLocationText(GeoCoordinate coordinates)
@@ -294,14 +322,14 @@ namespace MeetMeHereWP8
         {
             IncrementSendCount(); 
             var geocoding = new GeocodingHelper();
-            geocoding.GetGeocodingInfo(coordinates.Latitude, coordinates.Longitude, FindSmsContacts); 
+            geocoding.GetGeocodingInfo(_coordinates.Latitude, _coordinates.Longitude, FindSmsContacts); 
         }
 
         private void SendEmail_Click(object sender, EventArgs e)
         {
             IncrementSendCount();
             var geocoding = new GeocodingHelper();
-            geocoding.GetGeocodingInfo(coordinates.Latitude, coordinates.Longitude, FindEmailContacts);
+            geocoding.GetGeocodingInfo(_coordinates.Latitude, _coordinates.Longitude, FindEmailContacts);
         }
 
         private void FindSmsContacts(GeocodingInfo info)
@@ -332,34 +360,23 @@ namespace MeetMeHereWP8
 
         private void SendSms(IEnumerable<Contact> contacts, GeocodingInfo info)
         {
-            contactsPopup.IsOpen = false;
+            _contactsPopup.IsOpen = false;
 
             SmsComposeTask smsComposeTask = new SmsComposeTask();
             smsComposeTask.To = string.Join<Contact>(";", contacts);
-            smsComposeTask.Body = string.Format(MeetMeHere.Support.Resources.AppResources.SmsTemplate, info.AddressLabel, coordinates.Latitude, coordinates.Longitude);
+            smsComposeTask.Body = string.Format(MeetMeHere.Support.Resources.AppResources.SmsTemplate, info.AddressLabel, string.IsNullOrEmpty(_shortUrl) ? _longUrl : _shortUrl);
             smsComposeTask.Show();
         }
 
         private void SendEmail(IEnumerable<Contact> contacts, GeocodingInfo info)
         {
-            contactsPopup.IsOpen = false; 
-
-            var mapCoordinates = HereMap.Center;
-            var mapStyle = GetStyleNumber(HereMap.CartographicMode);
-            var mapZoom = HereMap.ZoomLevel;
+            _contactsPopup.IsOpen = false; 
 
             var emailSubject = MeetMeHere.Support.Resources.AppResources.EmailSubject; 
             var emailTo = string.Join<Contact>(";", contacts);
             var emailBody = string.Format(MeetMeHere.Support.Resources.AppResources.EmailBody, 
-                mapCoordinates.Latitude, 
-                mapCoordinates.Longitude, 
-                mapStyle, 
-                mapZoom, 
-                mapWidth,
-                mapHeight, 
-                HereMapsAppId, 
-                HereMapsAppCode, 
-                info.AddressLabel);
+                info.AddressLabel, 
+                string.IsNullOrEmpty(_shortUrl) ? _longUrl : _shortUrl);
 
             var email = new EmailComposeTask { To = emailTo, Subject = emailSubject, Body = emailBody };
             email.Show();
@@ -368,8 +385,8 @@ namespace MeetMeHereWP8
 
         private void IncrementSendCount()
         {
-            appSettings["sendCount"] = (int)appSettings["sendCount"] + 1;
-            TileHelper.SetTileData((int)appSettings["sendCount"]); 
+            _appSettings["sendCount"] = (int)_appSettings["sendCount"] + 1;
+            TileHelper.SetTileData((int)_appSettings["sendCount"]); 
         }
         
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
@@ -469,7 +486,7 @@ namespace MeetMeHereWP8
             Button btn_cancel = new Button();
             btn_cancel.Content = "cancel"; //TODO:add to resources
             btn_cancel.Width = 215;
-            btn_cancel.Click += new RoutedEventHandler((s,e) => contactsPopup.IsOpen = false);
+            btn_cancel.Click += new RoutedEventHandler((s,e) => _contactsPopup.IsOpen = false);
 
             skt_pnl_inner.Children.Add(btn_continue);
             skt_pnl_inner.Children.Add(btn_cancel);
@@ -481,12 +498,12 @@ namespace MeetMeHereWP8
             border.Child = skt_pnl_outter;
 
             // Adding border to pup-up
-            contactsPopup.Child = border;
+            _contactsPopup.Child = border;
 
-            contactsPopup.VerticalOffset = 100; // 400;
-            contactsPopup.HorizontalOffset = 10;
+            _contactsPopup.VerticalOffset = 100; // 400;
+            _contactsPopup.HorizontalOffset = 10;
 
-            contactsPopup.IsOpen = true;
+            _contactsPopup.IsOpen = true;
         }
 
         //private static void SendEmailScreenshot(FrameworkElement element, string to, string subject)
