@@ -10,7 +10,7 @@
     <Language code="ru" />
     <Language code="es" />
   </Languages>
-  <App xmlns="" ProductID="{87b248d3-db1b-4f98-8ba1-267f98049df4}" Title="Meet Me Here" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="Alex Martin" Description="Send and email with your location." Publisher="Nocturnal Tendencies" PublisherID="{00e53af5-1a84-417a-911c-4fa0c2063d78}">
+  <App xmlns="" ProductID="{87b248d3-db1b-4f98-8ba1-267f98049df4}" Title="Meet Me Here" RuntimeType="Silverlight" Version="1.1.0.0" Genre="apps.normal" Author="Alex Martin" Description="Send and email with your location." Publisher="Nocturnal Tendencies" PublisherID="{00e53af5-1a84-417a-911c-4fa0c2063d78}">
     <IconPath IsRelative="true" IsResource="false">Assets\ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING" />
@@ -41,7 +41,8 @@
           <LargeBackgroundImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileLarge.png</LargeBackgroundImageURI>
           <LargeBackContent>Sent 0</LargeBackContent>
           <LargeBackBackgroundImageURI IsRelative="true" IsResource="false">Assets\Tiles\mapview-wide.jpg</LargeBackBackgroundImageURI>
-          <DeviceLockImageURI></DeviceLockImageURI>
+          <DeviceLockImageURI>
+          </DeviceLockImageURI>
           <HasLarge>True</HasLarge>
         </TemplateFlip>
       </PrimaryToken>
