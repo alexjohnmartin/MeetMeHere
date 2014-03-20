@@ -95,6 +95,9 @@
     <Compile Include="TileHelper.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="MeetMeHereResources.fr-CA.resx" />
+    <EmbeddedResource Include="MeetMeHereResources.fr-FR.resx" />
+    <EmbeddedResource Include="MeetMeHereResources.hu.resx" />
     <EmbeddedResource Include="MeetMeHereResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>MeetMeHereResources.Designer.cs</LastGenOutput>

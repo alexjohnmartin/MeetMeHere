@@ -118,15 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutButtonEmail" xml:space="preserve">
-    <value>Email</value>
+    <value>E-mail</value>
     <comment>About page - email tile</comment>
   </data>
   <data name="AboutButtonReview" xml:space="preserve">
-    <value>Review</value>
+    <value>Felülvizsgálata</value>
     <comment>About page - review tile</comment>
   </data>
   <data name="AboutButtonStore" xml:space="preserve">
-    <value>Store</value>
+    <value>Bolt</value>
     <comment>About page - store tile</comment>
   </data>
   <data name="AboutButtonTwitter" xml:space="preserve">
@@ -134,56 +134,56 @@
     <comment>About page - twitter tile</comment>
   </data>
   <data name="AboutDescription" xml:space="preserve">
-    <value>This app lets you see your location on a map and send it as an email or text message</value>
+    <value>Ez az alkalmazás lehetővé teszi, hogy a helyét a térképen, és küldje el az e-mail vagy szöveges üzenet</value>
     <comment>About page - application description</comment>
   </data>
   <data name="AppBarAboutMenuItemText" xml:space="preserve">
-    <value>about</value>
+    <value>körülbelül</value>
     <comment>App bar - about button</comment>
   </data>
   <data name="AppBarEmailButtonText" xml:space="preserve">
-    <value>send email</value>
+    <value>küldjön e-mailt</value>
     <comment>App bar - send email button</comment>
   </data>
   <data name="AppBarRefreshButtonText" xml:space="preserve">
-    <value>refresh</value>
+    <value>felfrissít</value>
     <comment>App bar - refresh current location button</comment>
   </data>
   <data name="AppBarSmsButtonText" xml:space="preserve">
-    <value>send text</value>
+    <value>szöveget küldeni</value>
     <comment>App bar - send text message button</comment>
   </data>
   <data name="ApplicationName" xml:space="preserve">
-    <value>Meet Me Here</value>
+    <value>Találkozzunk itt</value>
     <comment>Application name, displayed at the top of the screen</comment>
   </data>
   <data name="EmailBody" xml:space="preserve">
-    <value>I'm at {8}.
-Map: http://image.maps.cit.api.here.com/mia/1.6/mapview?app_id={6}&amp;app_code={7}&amp;c={0},{1}&amp;z={3}&amp;w={4}&amp;h={5}&amp;t={2}</value>
+    <value>Vagyok {8}.
+Térkép: http://image.maps.cit.api.here.com/mia/1.6/mapview?app_id={6}&amp;app_code={7}&amp;c={0},{1}&amp;z={3}&amp;w={4}&amp;h={5}&amp;t={2}</value>
     <comment>Body of the email sent with current location</comment>
   </data>
   <data name="EmailSubject" xml:space="preserve">
-    <value>Meet me here</value>
+    <value>Találkozzunk itt</value>
     <comment>Subject of the email sent with current location</comment>
   </data>
   <data name="ErrorLocationDisabled" xml:space="preserve">
-    <value>Location is disabled</value>
+    <value>Hely van tiltva</value>
     <comment>Error shown if user doesn't allow location to be used</comment>
   </data>
   <data name="ErrorLocationDisabledInPhoneSettings" xml:space="preserve">
-    <value>Location is disabled in phone settings</value>
+    <value>Hely van tiltva a telefon beállításait</value>
     <comment>Error shown if user location is disabled in phone settings</comment>
   </data>
   <data name="LoadingLocation" xml:space="preserve">
-    <value>Getting your location...</value>
+    <value>Az első helyét...</value>
     <comment>Overlay text shown while waiting to get user's location</comment>
   </data>
   <data name="LocationPrivacyPolicyBody" xml:space="preserve">
-    <value>Can this application use your location?</value>
+    <value>Lehet ez az alkalmazás használja a helyet?</value>
     <comment>Body of message box prompting whether app can use user's location</comment>
   </data>
   <data name="LocationPrivacyPolicyTitle" xml:space="preserve">
-    <value>Location</value>
+    <value>Elhelyezkedés</value>
     <comment>Title of message box prompting whether app can use user's location</comment>
   </data>
   <data name="ResourceFlowDirection" xml:space="preserve">
@@ -191,15 +191,15 @@ Map: http://image.maps.cit.api.here.com/mia/1.6/mapview?app_id={6}&amp;app_code=
     <comment>Controls the FlowDirection for all elements in the RootFrame. Set to the traditional direction of this resource file's language</comment>
   </data>
   <data name="ResourceLanguage" xml:space="preserve">
-    <value>en-US</value>
+    <value>hu</value>
     <comment>Controls the Language and ensures that the font for all elements in the RootFrame aligns with the app's language. Set to the language code of this resource file's language.</comment>
   </data>
   <data name="SmsTemplate" xml:space="preserve">
-    <value>Meet me at {0}. Latitude:{1}, longitude:{2}</value>
+    <value>Találkozzunk {0}. Szélesség:{1}, hosszúság:{2}</value>
     <comment>Additional text shown on the live tiles, shows a count of messages sent today</comment>
   </data>
   <data name="TileSentCount" xml:space="preserve">
-    <value>Sent {0} today</value>
+    <value>Elküldött {0} ma</value>
     <comment>Live tile text - displays the amount of times this app has sent your location today</comment>
   </data>
 </root>
