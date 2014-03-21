@@ -5,7 +5,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MeetMeHere.Support
+namespace MeetMeHere.Code
 {
     public class GeocodingHelper
     {

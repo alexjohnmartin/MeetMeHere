@@ -1,4 +1,5 @@
-﻿using Microsoft.Phone.Maps.Controls;
+﻿using MeetMeHere.Support;
+using Microsoft.Phone.Maps.Controls;
 using Microsoft.Phone.Scheduler;
 using Microsoft.Phone.Shell;
 using System;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Resources;
 
-namespace MeetMeHere.Support
+namespace MeetMeHere.Code
 {
     public class DownloadAndSaveImage
     {

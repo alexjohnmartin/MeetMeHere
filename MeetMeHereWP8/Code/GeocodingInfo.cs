@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace MeetMeHere.Support
+namespace MeetMeHere.Code
 {
     public class GeocodingInfo
     {
