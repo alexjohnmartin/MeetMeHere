@@ -88,6 +88,7 @@ namespace MeetMeHereWP8
         const string HereMapsBaseUrl = "http://image.maps.cit.api.here.com/mia/1.6/mapview?app_id={6}&app_code={7}&c={0},{1}&z={3}&w={4}&h={5}&t={2}";
 
         bool _loading = true;
+        bool _locationFound = false;
         Geolocator _geolocator = null;
         GeoCoordinate _coordinates = null;
         string _longUrl = string.Empty;
@@ -134,21 +135,26 @@ namespace MeetMeHereWP8
 
         private async void GetLocation_Click(object sender, EventArgs e)
         {
-            _longUrl = string.Empty;
-            _shortUrl = string.Empty;
-
-            BuildLocalizedApplicationBar(false); 
-
             //Check for the user agreement in use his position. If not, method returns.
             if ((bool)_appSettings["LocationConsent"] != true)
             {
                 // The user has opted out of Location.
-                LoadingBlock.Visibility = System.Windows.Visibility.Collapsed; 
+                LoadingBlock.Visibility = System.Windows.Visibility.Collapsed;
                 ErrorBlock.Visibility = System.Windows.Visibility.Visible;
-                ErrorText.Text = MeetMeHere.Support.Resources.AppResources.ErrorLocationDisabled; 
+                ErrorText.Text = MeetMeHere.Support.Resources.AppResources.ErrorLocationDisabled;
+                BuildLocalizedApplicationBar();
                 return;
             }
+            else
+            {
+                ErrorBlock.Visibility = System.Windows.Visibility.Collapsed;
+            }
 
+            _longUrl = string.Empty;
+            _shortUrl = string.Empty;
+
+            _locationFound = false;
+            BuildLocalizedApplicationBar(); 
             HereMap.Layers.Clear();
             LoadingBlock.Visibility = System.Windows.Visibility.Visible; 
 
@@ -165,10 +171,11 @@ namespace MeetMeHereWP8
                 _coordinates = new GeoCoordinate(geoposition.Coordinate.Latitude, geoposition.Coordinate.Longitude);
                 HereMap.Center = _coordinates;
                 HereMap.ZoomLevel = 18;
-                LoadingBlock.Visibility = System.Windows.Visibility.Collapsed; 
+                LoadingBlock.Visibility = System.Windows.Visibility.Collapsed;
 
+                _locationFound = true; 
                 DrawMapMarkers(_coordinates);
-                BuildLocalizedApplicationBar(true);
+                BuildLocalizedApplicationBar();
                 StartDownloadMapImage(_coordinates);
                 UpdateTitleWithLocationText(_coordinates);
                 StartDownloadShortMapUrl(_coordinates); 
@@ -283,11 +290,11 @@ namespace MeetMeHereWP8
             mapLayer.Add(overlay3);
         }
 
-        private void BuildLocalizedApplicationBar(bool locationFound)
+        private void BuildLocalizedApplicationBar()
         {
             ApplicationBar = new ApplicationBar();
 
-            if (locationFound)
+            if (_locationFound)
             {
                 // Create a new button and set the text value to the localized string from MeetMeHere.Support.MeetMeHereResources.
                 var relocateButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.refresh.png", UriKind.Relative));
