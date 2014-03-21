@@ -122,11 +122,11 @@
     <comment>About page - email tile</comment>
   </data>
   <data name="AboutButtonReview" xml:space="preserve">
-    <value>crítica</value>
+    <value>Opinar</value>
     <comment>About page - review tile</comment>
   </data>
   <data name="AboutButtonStore" xml:space="preserve">
-    <value>tienda</value>
+    <value>Tienda</value>
     <comment>About page - store tile</comment>
   </data>
   <data name="AboutButtonTwitter" xml:space="preserve">
@@ -138,7 +138,7 @@
     <comment>About page - application description</comment>
   </data>
   <data name="AppBarAboutMenuItemText" xml:space="preserve">
-    <value>descripción</value>
+    <value>Acerca de...</value>
     <comment>App bar - about button</comment>
   </data>
   <data name="AppBarEmailButtonText" xml:space="preserve">
@@ -150,15 +150,15 @@
     <comment>App bar - refresh current location button</comment>
   </data>
   <data name="AppBarSettingsMenuItemText" xml:space="preserve">
-    <value>settings</value>
+    <value>Configuración</value>
     <comment>App bar - settings button</comment>
   </data>
   <data name="AppBarSmsButtonText" xml:space="preserve">
-    <value>enviar mensajes de texto</value>
+    <value>Enviar como mensaje de texto</value>
     <comment>App bar - send text message button</comment>
   </data>
   <data name="ApplicationName" xml:space="preserve">
-    <value>Recibirme aquí</value>
+    <value>EncuEntrame aquí</value>
     <comment>Application name, displayed at the top of the screen</comment>
   </data>
   <data name="EmailBody" xml:space="preserve">
@@ -167,23 +167,23 @@ Mapa: {1}</value>
     <comment>Body of the email sent with current location</comment>
   </data>
   <data name="EmailSubject" xml:space="preserve">
-    <value>Recibirme aquí</value>
+    <value>EncuEntrame aquí</value>
     <comment>Subject of the email sent with current location</comment>
   </data>
   <data name="ErrorLocationDisabled" xml:space="preserve">
-    <value>Posición está desactivado</value>
+    <value>Servicio de posición está desactivado</value>
     <comment>Error shown if user doesn't allow location to be used</comment>
   </data>
   <data name="ErrorLocationDisabledInPhoneSettings" xml:space="preserve">
-    <value>Posición está deshabilitado en la configuración del teléfono</value>
+    <value>Servicio de posición está deshabilitado en la configuración del teléfono</value>
     <comment>Error shown if user location is disabled in phone settings</comment>
   </data>
   <data name="LoadingLocation" xml:space="preserve">
-    <value>Para que tu lugar...</value>
+    <value>Obteniendo tu ubicación...</value>
     <comment>Overlay text shown while waiting to get user's location</comment>
   </data>
   <data name="LocationPrivacyPolicyBody" xml:space="preserve">
-    <value>¿Puede esta aplicación utilizar su posición?</value>
+    <value>¿Desea abilitar a esta aplicación obtener su posición?</value>
     <comment>Body of message box prompting whether app can use user's location</comment>
   </data>
   <data name="LocationPrivacyPolicyTitle" xml:space="preserve">
@@ -203,7 +203,7 @@ Mapa: {1}</value>
     <comment>Additional text shown on the live tiles, shows a count of messages sent today</comment>
   </data>
   <data name="TileSentCount" xml:space="preserve">
-    <value>Enviado {0} hoy</value>
+    <value>Enviado(s) {0} hoy</value>
     <comment>Live tile text - displays the amount of times this app has sent your location today</comment>
   </data>
 </root>
