@@ -135,7 +135,9 @@ namespace MeetMeHereWP8
         private async void GetLocation_Click(object sender, EventArgs e)
         {
             _longUrl = string.Empty;
-            _shortUrl = string.Empty; 
+            _shortUrl = string.Empty;
+
+            BuildLocalizedApplicationBar(false); 
 
             //Check for the user agreement in use his position. If not, method returns.
             if ((bool)_appSettings["LocationConsent"] != true)
@@ -148,7 +150,6 @@ namespace MeetMeHereWP8
             }
 
             HereMap.Layers.Clear();
-            BuildLocalizedApplicationBar(false); 
             LoadingBlock.Visibility = System.Windows.Visibility.Visible; 
 
             Geolocator geolocator = new Geolocator();
@@ -305,17 +306,15 @@ namespace MeetMeHereWP8
                 ApplicationBar.Buttons.Add(smsButton);
             }
 
-            // Create a new menu item with the localized string from MeetMeHere.Support.MeetMeHereResources.
+            //settings
+            var settingsMenuItem = new ApplicationBarMenuItem(MeetMeHere.Support.Resources.AppResources.AppBarSettingsMenuItemText);
+            settingsMenuItem.Click += (e, s) => { _loading = true; NavigationService.Navigate(new Uri("/SettingsPage.xaml", UriKind.Relative)); };
+            ApplicationBar.MenuItems.Add(settingsMenuItem);
+
+            //about
             var aboutMenuItem = new ApplicationBarMenuItem(MeetMeHere.Support.Resources.AppResources.AppBarAboutMenuItemText);
-            aboutMenuItem.Click += aboutMenuItem_Click;
+            aboutMenuItem.Click += (e, s) => NavigationService.Navigate(new Uri("/AboutPage.xaml", UriKind.Relative));
             ApplicationBar.MenuItems.Add(aboutMenuItem);
-
-            //TODO:settings
-        }
-
-        private void aboutMenuItem_Click(object sender, EventArgs e)
-        {
-            NavigationService.Navigate(new Uri("/AboutPage.xaml", UriKind.Relative));
         }
 
         private void SendSms_Click(object sender, EventArgs e)

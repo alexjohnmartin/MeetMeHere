@@ -149,6 +149,10 @@
     <value>rafraîchir</value>
     <comment>App bar - refresh current location button</comment>
   </data>
+  <data name="AppBarSettingsMenuItemText" xml:space="preserve">
+    <value>settings</value>
+    <comment>App bar - settings button</comment>
+  </data>
   <data name="AppBarSmsButtonText" xml:space="preserve">
     <value>envoyer des messages texte</value>
     <comment>App bar - send text message button</comment>

@@ -149,6 +149,10 @@
     <value>refresh</value>
     <comment>App bar - refresh current location button</comment>
   </data>
+  <data name="AppBarSettingsMenuItemText" xml:space="preserve">
+    <value>settings</value>
+    <comment>App bar - settings button</comment>
+  </data>
   <data name="AppBarSmsButtonText" xml:space="preserve">
     <value>send text</value>
     <comment>App bar - send text message button</comment>
@@ -193,6 +197,10 @@ Map: {1}</value>
   <data name="ResourceLanguage" xml:space="preserve">
     <value>en-US</value>
     <comment>Controls the Language and ensures that the font for all elements in the RootFrame aligns with the app's language. Set to the language code of this resource file's language.</comment>
+  </data>
+  <data name="SettingsAllowLocation" xml:space="preserve">
+    <value>Can this application use your location?</value>
+    <comment>Settings page - allow app to use location</comment>
   </data>
   <data name="SmsTemplate" xml:space="preserve">
     <value>Meet me at {0}. Map: {1}</value>

@@ -133,6 +133,15 @@ namespace MeetMeHere.Support.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to settings.
+        /// </summary>
+        public static string AppBarSettingsMenuItemText {
+            get {
+                return ResourceManager.GetString("AppBarSettingsMenuItemText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to send text.
         /// </summary>
         public static string AppBarSmsButtonText {
@@ -229,6 +238,15 @@ namespace MeetMeHere.Support.Resources {
         public static string ResourceLanguage {
             get {
                 return ResourceManager.GetString("ResourceLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Can this application use your location?.
+        /// </summary>
+        public static string SettingsAllowLocation {
+            get {
+                return ResourceManager.GetString("SettingsAllowLocation", resourceCulture);
             }
         }
         
