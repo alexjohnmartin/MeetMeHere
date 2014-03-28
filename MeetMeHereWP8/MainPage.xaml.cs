@@ -22,6 +22,7 @@ using Microsoft.Phone.Scheduler;
 using System.IO;
 using MeetMeHere.Support;
 using MeetMeHere.Code;
+using Microsoft.Phone.Net.NetworkInformation;
 
 ////based on examples from...
 
@@ -177,9 +178,13 @@ namespace MeetMeHereWP8
                 _locationFound = true; 
                 DrawMapMarkers(_coordinates);
                 BuildLocalizedApplicationBar();
-                StartDownloadMapImage(_coordinates);
-                UpdateTitleWithLocationText(_coordinates);
-                StartDownloadShortMapUrl(_coordinates); 
+                
+                if (DeviceNetworkInformation.IsNetworkAvailable)
+                {
+                    StartDownloadMapImage(_coordinates);
+                    UpdateTitleWithLocationText(_coordinates);
+                    StartDownloadShortMapUrl(_coordinates); 
+                }
             }
             //If an error is catch 2 are the main causes: the first is that you forgot to include ID_CAP_LOCATION in your app manifest. 
             //The second is that the user doesn't turned on the Location Services
