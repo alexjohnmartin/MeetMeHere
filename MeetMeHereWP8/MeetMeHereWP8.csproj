@@ -138,6 +138,7 @@
     <Content Include="Assets\About\appbar.store.png" />
     <Content Include="Assets\About\feature.email.png" />
     <Content Include="Assets\AlignmentGrid.png" />
+    <Content Include="Assets\AppBar\appbar.message.send.png" />
     <Content Include="Assets\AppBar\appbar.refresh.png" />
     <Content Include="Assets\AppBar\appbar.email.png" />
     <Content Include="Assets\AppBar\appbar.phone.png" />

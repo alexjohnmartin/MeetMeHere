@@ -142,6 +142,15 @@ namespace MeetMeHere.Support.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to send....
+        /// </summary>
+        public static string AppBarShareButtonText {
+            get {
+                return ResourceManager.GetString("AppBarShareButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to send text.
         /// </summary>
         public static string AppBarSmsButtonText {

@@ -23,6 +23,8 @@ using System.IO;
 using MeetMeHere.Support;
 using MeetMeHere.Code;
 using Microsoft.Phone.Net.NetworkInformation;
+using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Media.PhoneExtensions;
 
 ////based on examples from...
 
@@ -308,15 +310,20 @@ namespace MeetMeHereWP8
                 relocateButton.Click += GetLocation_Click;
                 ApplicationBar.Buttons.Add(relocateButton);
 
-                var emailButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.email.png", UriKind.Relative));
-                emailButton.Text = MeetMeHere.Support.Resources.AppResources.AppBarEmailButtonText;
-                emailButton.Click += SendEmail_Click;
-                ApplicationBar.Buttons.Add(emailButton);
+                //var emailButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.email.png", UriKind.Relative));
+                //emailButton.Text = MeetMeHere.Support.Resources.AppResources.AppBarEmailButtonText;
+                //emailButton.Click += SendEmail_Click;
+                //ApplicationBar.Buttons.Add(emailButton);
 
-                var smsButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.phone.png", UriKind.Relative));
-                smsButton.Text = MeetMeHere.Support.Resources.AppResources.AppBarSmsButtonText;
-                smsButton.Click += SendSms_Click; 
-                ApplicationBar.Buttons.Add(smsButton);
+                //var smsButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.phone.png", UriKind.Relative));
+                //smsButton.Text = MeetMeHere.Support.Resources.AppResources.AppBarSmsButtonText;
+                //smsButton.Click += SendSms_Click; 
+                //ApplicationBar.Buttons.Add(smsButton);
+
+                var shareButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.message.send.png", UriKind.Relative));
+                shareButton.Text = MeetMeHere.Support.Resources.AppResources.AppBarShareButtonText;
+                shareButton.Click += Share_Click;
+                ApplicationBar.Buttons.Add(shareButton);
             }
 
             //settings
@@ -330,9 +337,14 @@ namespace MeetMeHereWP8
             ApplicationBar.MenuItems.Add(aboutMenuItem);
         }
 
+        private void Share_Click(object sender, EventArgs e)
+        {
+            ShareMap(); 
+        }
+
         private void SendSms_Click(object sender, EventArgs e)
         {
-            IncrementSendCount(); 
+            IncrementSendCount();
             var geocoding = new GeocodingHelper();
             geocoding.GetGeocodingInfo(_coordinates.Latitude, _coordinates.Longitude, FindSmsContacts); 
         }
@@ -392,7 +404,17 @@ namespace MeetMeHereWP8
 
             var email = new EmailComposeTask { To = emailTo, Subject = emailSubject, Body = emailBody };
             email.Show();
-            //SendEmailScreenshot(HereMap, emailTo, emailSubject); 
+        }
+
+        private void ShareMap()
+        {
+            var filePath = SaveMapImageToMediaLibrary();
+            if (!string.IsNullOrEmpty(filePath))
+            {
+                ShareMediaTask shareTask = new ShareMediaTask();
+                shareTask.FilePath = filePath;
+                shareTask.Show();
+            }
         }
 
         private void IncrementSendCount()
@@ -518,39 +540,27 @@ namespace MeetMeHereWP8
             _contactsPopup.IsOpen = true;
         }
 
-        //private static void SendEmailScreenshot(FrameworkElement element, string to, string subject)
-        //{
-        //    // Render the element at the maximum possible size
-        //    ScaleTransform transform = null;
-        //    if (element.ActualWidth * element.ActualHeight > 240 * 400)
-        //    {
-        //        // Calculate a uniform scale with the minimum possible size
-        //        var scaleX = 240.0 / element.ActualWidth;
-        //        var scaleY = 400.0 / element.ActualHeight;
-        //        var scale = scaleX < scaleY ? scaleX : scaleY;
-        //        transform = new ScaleTransform { ScaleX = scale, ScaleY = scale };
-        //    }
-        //    var wb = new WriteableBitmap(element, transform);
+        private string SaveMapImageToMediaLibrary()
+        {
+            var bitmap = new WriteableBitmap(LayoutRoot, null);
+            using (MemoryStream stream = new MemoryStream())
+            {
+                bitmap.SaveJpeg(stream, bitmap.PixelWidth, bitmap.PixelHeight, 0, 100);
+                stream.Seek(0, SeekOrigin.Begin);
 
-        //    using (var memoryStream = new MemoryStream())
-        //    {
-        //        // Encode the screenshot as JPEG with a quality of 60%
-        //        wb.SaveJpeg(memoryStream, wb.PixelWidth, wb.PixelHeight, 0, 60);
-        //        memoryStream.Seek(0, SeekOrigin.Begin);
+                foreach (MediaSource source in MediaSource.GetAvailableMediaSources())
+                {
+                    if (source.MediaSourceType == MediaSourceType.LocalDevice)
+                    {
+                        var mediaLibrary = new MediaLibrary(source);
+                        var filename = "map-" + DateTime.Now.ToString("yyyyMMdd-HHmmss") + ".jpg";
+                        var picture = mediaLibrary.SavePicture(filename, stream);
+                        return picture.GetPath(); 
+                    }
+                }
+            }
 
-        //        // Convert binary data to Base64 string
-        //        var bytes = memoryStream.ToArray();
-        //        var base64String = Convert.ToBase64String(bytes);
-
-        //        // Invoke email task
-        //        var emailComposeTask = new EmailComposeTask
-        //        {
-        //            Subject = subject,
-        //            Body = base64String,
-        //            To = "alex.john.martin@gmail.com", //to,
-        //        };
-        //        emailComposeTask.Show();
-        //    }
-        //}
+            return string.Empty; 
+        }
     }
 }

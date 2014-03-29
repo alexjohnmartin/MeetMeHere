@@ -153,6 +153,10 @@
     <value>Configuración</value>
     <comment>App bar - settings button</comment>
   </data>
+  <data name="AppBarShareButtonText" xml:space="preserve">
+    <value>enviar...</value>
+    <comment>App bar - share map button</comment>
+  </data>
   <data name="AppBarSmsButtonText" xml:space="preserve">
     <value>Enviar como mensaje de texto</value>
     <comment>App bar - send text message button</comment>

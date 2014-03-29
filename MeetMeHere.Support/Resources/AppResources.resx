@@ -153,6 +153,10 @@
     <value>settings</value>
     <comment>App bar - settings button</comment>
   </data>
+  <data name="AppBarShareButtonText" xml:space="preserve">
+    <value>send...</value>
+    <comment>App bar - share map button</comment>
+  </data>
   <data name="AppBarSmsButtonText" xml:space="preserve">
     <value>send text</value>
     <comment>App bar - send text message button</comment>
