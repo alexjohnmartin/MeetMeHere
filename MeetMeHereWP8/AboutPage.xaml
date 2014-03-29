@@ -45,7 +45,7 @@
 
             <Button Name="TwitterButton" Click="TwitterButton_Click" Background="Red" BorderThickness="0" Grid.Column="0" Grid.Row="0">
                 <StackPanel>
-                    <Image Source="Assets/About/appbar.chat.png" MaxHeight="120" />
+                    <Image Source="Assets/About/appbar.social.twitter.png" MaxHeight="120" />
                     <TextBlock Text="{Binding Path=LocalizedResources.AboutButtonTwitter, Source={StaticResource LocalizedStrings}}" />
                 </StackPanel>
             </Button>
@@ -59,14 +59,14 @@
 
             <Button Name="EmailButton" Click="EmailButton_Click" Background="Goldenrod" BorderThickness="0" Grid.Column="0" Grid.Row="1">
                 <StackPanel>
-                    <Image Source="Assets/About/feature.email.png" MaxHeight="120" />
+                    <Image Source="Assets/AppBar/appbar.email.png" MaxHeight="120" />
                     <TextBlock Text="{Binding Path=LocalizedResources.AboutButtonEmail, Source={StaticResource LocalizedStrings}}" />
                 </StackPanel>
             </Button>
 
             <Button Name="StoreButton" Click="StoreButton_Click" Background="Green" BorderThickness="0" Grid.Column="1" Grid.Row="1">
                 <StackPanel>
-                    <Image Source="Assets/About/appbar.store.png" MaxHeight="120" />
+                    <Image Source="Assets/About/appbar.marketplace.png" MaxHeight="120" />
                     <TextBlock Text="{Binding Path=LocalizedResources.AboutButtonStore, Source={StaticResource LocalizedStrings}}" />
                 </StackPanel>
             </Button>
