@@ -21,7 +21,7 @@
         </Grid.RowDefinitions>
 
         <!--TitlePanel contains the name of the application and page title-->
-        <StackPanel Grid.Row="0" Margin="12,17,0,28">
+        <StackPanel Grid.Row="0" Margin="12,17,0,0">
             <TextBlock Text="{Binding Path=LocalizedResources.ApplicationName, Source={StaticResource LocalizedStrings}}" 
                        Style="{StaticResource PhoneTextTitle2Style}"/>
             <TextBlock Text="{Binding Path=LocalizedResources.AboutDescription, Source={StaticResource LocalizedStrings}}" 
@@ -68,6 +68,13 @@
                 <StackPanel>
                     <Image Source="Assets/About/appbar.marketplace.png" MaxHeight="120" />
                     <TextBlock Text="{Binding Path=LocalizedResources.AboutButtonStore, Source={StaticResource LocalizedStrings}}" />
+                </StackPanel>
+            </Button>
+
+            <Button Name="CreditsButton" Click="CreditsButton_Click" Background="Blue" BorderThickness="0" Grid.Column="0" Grid.Row="2">
+                <StackPanel>
+                    <Image Source="Assets/About/appbar.companioncube.png" MaxHeight="120" />
+                    <TextBlock Text="{Binding Path=LocalizedResources.AboutButtonCredits, Source={StaticResource LocalizedStrings}}" />
                 </StackPanel>
             </Button>
         </Grid>

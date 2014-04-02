@@ -46,7 +46,7 @@ namespace MeetMeHere.Code
                         ).Trim();
                 }
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 addressLabel = "????";
             }

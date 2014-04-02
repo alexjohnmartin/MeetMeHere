@@ -117,6 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AboutButtonCredits" xml:space="preserve">
+    <value>Gracias a...</value>
+    <comment>About page - credits tile</comment>
+  </data>
   <data name="AboutButtonEmail" xml:space="preserve">
     <value>e-mail</value>
     <comment>About page - email tile</comment>
@@ -181,6 +185,10 @@ Mapa: {1}</value>
   <data name="ErrorLocationDisabledInPhoneSettings" xml:space="preserve">
     <value>Servicio de posición está deshabilitado en la configuración del teléfono</value>
     <comment>Error shown if user location is disabled in phone settings</comment>
+  </data>
+  <data name="LatLongText" xml:space="preserve">
+    <value>Lat: {0}, Long:{1}</value>
+    <comment>Text display of the user's latitude and longitude</comment>
   </data>
   <data name="LoadingLocation" xml:space="preserve">
     <value>Obteniendo tu ubicación...</value>

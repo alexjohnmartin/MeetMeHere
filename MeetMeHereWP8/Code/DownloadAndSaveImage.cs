@@ -129,7 +129,7 @@ namespace MeetMeHere.Code
                 ScheduledActionService.LaunchForTest(periodicTaskName, TimeSpan.FromSeconds(60));
 #endif
             }
-            catch (InvalidOperationException exception)
+            catch (InvalidOperationException)
             {
 
             }
