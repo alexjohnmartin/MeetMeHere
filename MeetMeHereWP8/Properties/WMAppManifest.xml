@@ -4,8 +4,9 @@
   <Languages xmlns="">
     <Language code="en-US" />
     <Language code="en" />
+    <Language code="es" />
   </Languages>
-  <App xmlns="" ProductID="{87b248d3-db1b-4f98-8ba1-267f98049df4}" Title="Meet Me Here" RuntimeType="Silverlight" Version="1.0.1.0" Genre="apps.normal" Author="Alex Martin" Description="Send and email with your location." Publisher="Nocturnal Tendencies" PublisherID="{00e53af5-1a84-417a-911c-4fa0c2063d78}">
+  <App xmlns="" ProductID="{87b248d3-db1b-4f98-8ba1-267f98049df4}" Title="Meet Me Here" RuntimeType="Silverlight" Version="1.1.0.0" Genre="apps.normal" Author="Alex Martin" Description="Send and email with your location." Publisher="Nocturnal Tendencies" PublisherID="{00e53af5-1a84-417a-911c-4fa0c2063d78}">
     <IconPath IsRelative="true" IsResource="false">Assets\ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING" />
