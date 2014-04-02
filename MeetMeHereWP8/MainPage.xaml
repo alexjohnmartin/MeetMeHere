@@ -66,6 +66,20 @@
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center"/>
             </Grid>
+            
+            <Grid x:Name="LatLongBlock" Visibility="Collapsed">
+                <Rectangle HorizontalAlignment="Center" Width="500" Height="30" Opacity="0.8" VerticalAlignment="Bottom">
+                    <Rectangle.Fill>
+                        <SolidColorBrush Color="Gray" />
+                    </Rectangle.Fill>
+                </Rectangle>
+
+                <TextBlock Name="LatLongText" 
+                           Style="{StaticResource PhoneTextNormalStyle}"
+                           VerticalAlignment="Bottom"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,4"/>
+            </Grid>
         </Grid>
 
 

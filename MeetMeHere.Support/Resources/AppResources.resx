@@ -182,6 +182,10 @@ Map: {1}</value>
     <value>Location is disabled in phone settings</value>
     <comment>Error shown if user location is disabled in phone settings</comment>
   </data>
+  <data name="LatLongText" xml:space="preserve">
+    <value>Lat: {0}, Long:{1}</value>
+    <comment>Text display of the user's latitude and longitude</comment>
+  </data>
   <data name="LoadingLocation" xml:space="preserve">
     <value>Getting your location...</value>
     <comment>Overlay text shown while waiting to get user's location</comment>

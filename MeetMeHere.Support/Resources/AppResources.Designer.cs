@@ -206,6 +206,15 @@ namespace MeetMeHere.Support.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lat: {0}, Long:{1}.
+        /// </summary>
+        public static string LatLongText {
+            get {
+                return ResourceManager.GetString("LatLongText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Getting your location....
         /// </summary>
         public static string LoadingLocation {

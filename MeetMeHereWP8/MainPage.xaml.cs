@@ -180,6 +180,7 @@ namespace MeetMeHereWP8
                 _locationFound = true; 
                 DrawMapMarkers(_coordinates);
                 BuildLocalizedApplicationBar();
+                DisplayLatitudeAndLongitude(_coordinates);
                 
                 if (DeviceNetworkInformation.IsNetworkAvailable)
                 {
@@ -203,6 +204,12 @@ namespace MeetMeHereWP8
                     // something else happened during the acquisition of the location
                 //}
             }
+        }
+
+        private void DisplayLatitudeAndLongitude(GeoCoordinate _coordinates)
+        {
+            LatLongText.Text = string.Format(MeetMeHere.Support.Resources.AppResources.LatLongText, _coordinates.Latitude, _coordinates.Longitude); 
+            LatLongBlock.Visibility = System.Windows.Visibility.Visible; 
         }
 
         private void StartDownloadShortMapUrl(GeoCoordinate coordinates)
