@@ -32,15 +32,15 @@
         <StackPanel x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <StackPanel Orientation="Horizontal" Margin="12,20,12,0">
                 <TextBlock Text="Icons from"/>
-                <HyperlinkButton Click="HyperlinkButton_Click" TargetName="_blank" NavigateUri="http://modernuiicons.com/">Modern UI Icons</HyperlinkButton>
+                <HyperlinkButton TargetName="_blank" NavigateUri="http://modernuiicons.com/">Modern UI Icons</HyperlinkButton>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="12,20,12,0">
                 <TextBlock Text="Information from"/>
-                <HyperlinkButton Click="HyperlinkButton_Click" TargetName="_blank" NavigateUri="http://developer.nokia.com">Nokia Developer</HyperlinkButton>
+                <HyperlinkButton TargetName="_blank" NavigateUri="http://developer.nokia.com">Nokia Developer</HyperlinkButton>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="12,20,12,0">
                 <TextBlock Text="Inspiration from"/>
-                <HyperlinkButton Click="HyperlinkButton_Click" TargetName="_blank" NavigateUri="https://www.dvlup.com">DVLUP</HyperlinkButton>
+                <HyperlinkButton TargetName="_blank" NavigateUri="https://www.dvlup.com">DVLUP</HyperlinkButton>
             </StackPanel>
         </StackPanel>
     </Grid>

@@ -17,13 +17,4 @@ namespace MeetMeHereWP8
         {
             InitializeComponent();
         }
-
-        private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
-        {
-            HyperlinkButton button = (HyperlinkButton)sender; 
-            var task = new WebBrowserTask();
-            task.Uri = new Uri(button.Tag.ToString(), UriKind.Absolute);
-            task.Show();
-        }
-    }
 }
